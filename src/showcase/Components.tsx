@@ -3,13 +3,16 @@ import {
   Bell,
   Check,
   Info,
+  Menu,
   Plus,
   Search,
   Settings,
   Star,
   TriangleAlert,
+  X,
 } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { useState } from 'react'
 
 import {
   Badge,
@@ -19,6 +22,7 @@ import {
   CardFooter,
   CardHeader,
   Checkbox,
+  Drawer,
   IconButton,
   Input,
   Kbd,
@@ -44,6 +48,49 @@ function Group({ id, title, children }: { id: string; title: string; children: R
       </div>
       {children}
     </div>
+  )
+}
+
+function DrawerDemo() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button variant="secondary" iconLeft={<Menu />} onClick={() => setOpen(true)}>
+        Open drawer
+      </Button>
+      <Drawer open={open} onClose={() => setOpen(false)} aria-label="Demo sections">
+        <div className="flex items-center justify-between gap-4">
+          <Wordmark compact size="sm" />
+          <IconButton label="Close drawer" variant="ghost" onClick={() => setOpen(false)}>
+            <X />
+          </IconButton>
+        </div>
+        <SideNav
+          activeId="forms-demo"
+          onNavigate={() => setOpen(false)}
+          sections={[
+            {
+              id: 'foundations-demo',
+              number: 1,
+              label: 'Foundations',
+              items: [
+                { id: 'colors-demo', label: 'Color' },
+                { id: 'type-demo', label: 'Typography' },
+              ],
+            },
+            {
+              id: 'components-demo',
+              number: 2,
+              label: 'Components',
+              items: [
+                { id: 'core-demo', label: 'Core' },
+                { id: 'forms-demo', label: 'Forms' },
+              ],
+            },
+          ]}
+        />
+      </Drawer>
+    </>
   )
 }
 
@@ -293,6 +340,9 @@ export function Components() {
                 ]}
               />
             </div>
+          </Spec>
+          <Spec name="Drawer">
+            <DrawerDemo />
           </Spec>
         </Group>
       </div>

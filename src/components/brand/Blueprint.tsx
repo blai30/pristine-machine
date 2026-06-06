@@ -72,10 +72,15 @@ export function BlueprintFrame({
   ...rest
 }: HTMLAttributes<HTMLDivElement> & { children: ReactNode }) {
   return (
-    <div className="min-h-screen overflow-x-clip bg-mauve-100 dark:bg-mauve-900">
+    <div className="relative min-h-screen overflow-x-clip bg-mauve-100 dark:bg-mauve-900">
+      {/* "Out of bounds" diagonal hatch — fills the gutters; the solid frame masks the center. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent_0,currentColor_0.03125rem,currentColor_0.09375rem,transparent_0.125rem,transparent_0.875rem)] text-mauve-300/70 dark:text-mauve-700/70"
+      />
       <div
         className={clsx(
-          'relative mx-auto min-h-screen max-w-6xl border-x border-mauve-200 dark:border-mauve-700',
+          'relative mx-auto min-h-screen max-w-6xl border-x border-mauve-200 bg-mauve-100 dark:border-mauve-700 dark:bg-mauve-900',
           className
         )}
         {...rest}

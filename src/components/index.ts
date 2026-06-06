@@ -41,6 +41,8 @@ export type { SideNavProps, SideNavSection, SideNavItem } from '@/components/nav
 export { Sidebar } from '@/components/navigation/Sidebar'
 export { Navbar } from '@/components/navigation/Navbar'
 export type { NavbarProps, NavbarItem } from '@/components/navigation/Navbar'
+export { Drawer } from '@/components/navigation/Drawer'
+export type { DrawerProps, DrawerSide } from '@/components/navigation/Drawer'
 
 // Brand
 export { Wordmark } from '@/components/brand/Wordmark'

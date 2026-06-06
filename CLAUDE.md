@@ -71,7 +71,7 @@ src/
     core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock
     forms/               Input, Select, Switch, Checkbox + Radio
     feedback/            Callout, Tooltip
-    navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar
+    navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
   lib/
     styles.ts            shared class fragments: focusRing, eyebrow
@@ -115,15 +115,23 @@ section/example into its own file rather than letting one grow large.
   `syntax` map (exported from `components`) is the single source of truth for token colors; it sits on
   the well surface. No JS highlighter library (it would inject CSS).
 - **Blueprint frame:** corner `PlusTick`s use `insetY` so they stay inside the frame vertically (a
-  straddling bottom tick previously extended page height); the shell uses `overflow-x-clip`.
+  straddling bottom tick previously extended page height); the shell uses `overflow-x-clip`. The shell
+  paints an "out-of-bounds" diagonal hatch (`repeating-linear-gradient` via `currentColor`, `mauve-300/70`
+  light · `mauve-700/70` dark) that only shows in the gutters; the centered frame carries a solid
+  `bg-mauve-100`/`mauve-900` to mask it behind the content. The hatch lines are **feathered** (a ~1px
+  solid core with ~0.5px soft edges) so thin 45° lines rasterize at a uniform shade instead of the
+  pixel-grid "alternating" beat you get from hard 1px stops.
 
 ---
 
 ## Showcase conventions
 
-- Single page in `App.tsx`: a sticky `Navbar` (top-level sections only — Foundations / Components /
-  Live Preview) + numbered `SectionGroup`s (`01`/`02`/`03`, ordinal in the accent) + footer, all inside
-  `BlueprintFrame`, separated by ticked `BlueprintDivider`s.
+- Single page in `App.tsx`: numbered `SectionGroup`s (`01`/`02`/`03`, ordinal in the accent) + footer,
+  all inside `BlueprintFrame`, separated by ticked `BlueprintDivider`s.
+- **Responsive nav:** a sticky `Navbar` (top-level sections — Foundations / Components / Live Preview)
+  on `lg+` (`max-lg:hidden`); below `lg` it swaps to a sticky bar + hamburger that opens a `Drawer`
+  (the reusable off-canvas component) holding the `SideNav`. `Drawer` is `open`/`onClose`-controlled,
+  slides over a dimmed scrim, closes on scrim-click / Escape, and is `inert` when closed.
 - `useScrollSpy` tracks the top-level section ids for the navbar active state; `nav.ts` is the shared
   nav model.
 - Live Preview = real interfaces assembled **only** from the primitives (deploy console, pricing,

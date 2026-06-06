@@ -1,4 +1,5 @@
-import { ArrowDown, Moon, Palette, Sun } from 'lucide-react'
+import { ArrowDown, Menu, Moon, Palette, Sun, X } from 'lucide-react'
+import { useState } from 'react'
 
 import heroImage from '@/assets/hero.png'
 import {
@@ -6,8 +7,10 @@ import {
   BlueprintDivider,
   BlueprintFrame,
   Button,
+  Drawer,
   IconButton,
   Navbar,
+  SideNav,
   Wordmark,
 } from '@/components'
 import { eyebrow } from '@/lib/styles'
@@ -15,7 +18,7 @@ import { Brand } from '@/showcase/Brand'
 import { Colors } from '@/showcase/Colors'
 import { Components } from '@/showcase/Components'
 import { LivePreview } from '@/showcase/LivePreview'
-import { NAV_ITEMS, SPY_IDS } from '@/showcase/nav'
+import { NAV_ITEMS, NAV_SECTIONS, SPY_IDS } from '@/showcase/nav'
 import { Scales } from '@/showcase/Scales'
 import { Typography } from '@/showcase/Typography'
 import { SectionGroup } from '@/showcase/ui'
@@ -37,10 +40,13 @@ function ThemeToggle({ theme, toggle }: { theme: 'light' | 'dark'; toggle: () =>
 export default function App() {
   const { theme, toggle } = useTheme()
   const activeId = useScrollSpy(SPY_IDS)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <BlueprintFrame>
+      {/* Desktop: top navbar */}
       <Navbar
+        className="max-lg:hidden"
         items={NAV_ITEMS}
         activeId={activeId}
         start={<Wordmark compact size="sm" />}
@@ -51,6 +57,33 @@ export default function App() {
           </>
         }
       />
+
+      {/* Mobile: sticky bar + slide-in sidebar drawer */}
+      <header className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-mauve-300 bg-mauve-100/90 px-6 py-3 backdrop-blur-xl lg:hidden dark:border-mauve-700 dark:bg-mauve-900/90">
+        <Wordmark compact size="sm" />
+        <IconButton label="Open menu" variant="outline" onClick={() => setMenuOpen(true)}>
+          <Menu />
+        </IconButton>
+      </header>
+      <div className="lg:hidden">
+        <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} aria-label="Sections">
+          <div className="flex items-center justify-between gap-4">
+            <Wordmark compact size="sm" />
+            <IconButton label="Close menu" variant="ghost" onClick={() => setMenuOpen(false)}>
+              <X />
+            </IconButton>
+          </div>
+          <SideNav
+            sections={NAV_SECTIONS}
+            activeId={activeId}
+            onNavigate={() => setMenuOpen(false)}
+          />
+          <div className="mt-auto flex items-center justify-between border-t border-mauve-200 pt-4 dark:border-mauve-700">
+            <Badge variant="neutral">v0.1.0</Badge>
+            <ThemeToggle theme={theme} toggle={toggle} />
+          </div>
+        </Drawer>
+      </div>
 
       <section className="flex flex-col items-start gap-12 px-6 py-20 sm:px-10 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-xl">
