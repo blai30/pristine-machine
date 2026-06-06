@@ -1,3 +1,116 @@
+import { ArrowDown, Moon, Palette, Sun } from 'lucide-react'
+
+import {
+  Badge,
+  BlueprintDivider,
+  BlueprintFrame,
+  Button,
+  IconButton,
+  Navbar,
+  Wordmark,
+} from '@/components'
+import heroImage from '@/assets/hero.png'
+import { eyebrow } from '@/lib/styles'
+import { Brand } from '@/showcase/Brand'
+import { Colors } from '@/showcase/Colors'
+import { Components } from '@/showcase/Components'
+import { LivePreview } from '@/showcase/LivePreview'
+import { NAV_ITEMS, SPY_IDS } from '@/showcase/nav'
+import { Scales } from '@/showcase/Scales'
+import { Typography } from '@/showcase/Typography'
+import { SectionGroup } from '@/showcase/ui'
+import { useScrollSpy } from '@/showcase/useScrollSpy'
+import { useTheme } from '@/showcase/useTheme'
+
+function ThemeToggle({ theme, toggle }: { theme: 'light' | 'dark'; toggle: () => void }) {
+  return (
+    <IconButton
+      label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+      variant="outline"
+      onClick={toggle}
+    >
+      {theme === 'dark' ? <Sun /> : <Moon />}
+    </IconButton>
+  )
+}
+
 export default function App() {
-  return <></>
+  const { theme, toggle } = useTheme()
+  const activeId = useScrollSpy(SPY_IDS)
+
+  return (
+    <BlueprintFrame>
+      <Navbar
+        items={NAV_ITEMS}
+        activeId={activeId}
+        start={<Wordmark compact size="sm" />}
+        end={
+          <>
+            <Badge variant="neutral">v0.1.0</Badge>
+            <ThemeToggle theme={theme} toggle={toggle} />
+          </>
+        }
+      />
+
+      <section className="flex flex-col items-start gap-12 px-6 py-20 sm:px-10 lg:flex-row lg:items-center lg:justify-between">
+        <div className="max-w-xl">
+          <span className={eyebrow}>Master Design System · v0.1.0</span>
+          <h1 className="mt-5 max-w-md font-serif text-7xl leading-18 tracking-tight text-mauve-900 dark:text-mauve-100">
+            A living system for{' '}
+            <span className="text-rose-700 italic dark:text-rose-300">pristine</span> web software.
+          </h1>
+          <p className="mt-6 max-w-xl font-sans text-lg leading-relaxed text-mauve-600 dark:text-mauve-400">
+            A draughtsman's blueprint redrawn with an editorial serif and a plum-blossom accent.
+            Precise without being cold — every token, type ramp, and component on one page, fully
+            live. Built entirely from Tailwind utility classes.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Button
+              variant="primary"
+              iconRight={<ArrowDown />}
+              onClick={() =>
+                document.getElementById('components')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              Browse components
+            </Button>
+            <Button variant="secondary" iconLeft={<Palette />} onClick={toggle}>
+              Toggle theme
+            </Button>
+          </div>
+        </div>
+        <img
+          src={heroImage}
+          alt=""
+          className="hidden w-full max-w-xs shrink-0 lg:block lg:max-w-sm"
+        />
+      </section>
+
+      <BlueprintDivider ticked />
+      <SectionGroup id="foundations" number={1} label="Foundations">
+        <Colors />
+        <Typography />
+        <Scales />
+        <Brand />
+      </SectionGroup>
+
+      <BlueprintDivider ticked />
+      <SectionGroup id="components" number={2} label="Components">
+        <Components />
+      </SectionGroup>
+
+      <BlueprintDivider ticked />
+      <SectionGroup id="live-preview" number={3} label="Live Preview">
+        <LivePreview />
+      </SectionGroup>
+
+      <BlueprintDivider ticked />
+      <footer className="flex flex-col gap-1 px-6 py-12 sm:px-10">
+        <span className={eyebrow}>Pristine Machine</span>
+        <p className="font-sans text-sm text-mauve-500">
+          Master design system · Tailwind CSS utilities only · light &amp; dark.
+        </p>
+      </footer>
+    </BlueprintFrame>
+  )
 }
