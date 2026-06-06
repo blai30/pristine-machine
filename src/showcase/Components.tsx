@@ -28,9 +28,11 @@ import {
   Kbd,
   Navbar,
   Radio,
+  RadioGroup,
   SegmentedControl,
   SideNav,
   Select,
+  SelectMenu,
   Switch,
   Tabs,
   Tooltip,
@@ -219,12 +221,20 @@ export function Components() {
             </div>
           </Spec>
           <Spec name="Select" row={false}>
-            <div className="w-full max-w-xs">
+            <div className="flex w-full max-w-xs flex-col gap-3">
               <Select defaultValue="serif">
                 <option value="serif">Instrument Serif</option>
                 <option value="sans">Geist</option>
                 <option value="mono">JetBrains Mono</option>
               </Select>
+              <SelectMenu
+                defaultValue="serif"
+                items={[
+                  { value: 'serif', label: 'Instrument Serif' },
+                  { value: 'sans', label: 'Geist' },
+                  { value: 'mono', label: 'JetBrains Mono' },
+                ]}
+              />
             </div>
           </Spec>
           <Spec name="Switch">
@@ -238,11 +248,11 @@ export function Components() {
               <Checkbox label="Ship beta features" />
               <Checkbox label="Disabled" disabled />
             </div>
-            <div className="flex flex-col gap-3">
-              <Radio name="plan" value="month" label="Monthly" defaultChecked />
-              <Radio name="plan" value="year" label="Yearly" />
-              <Radio name="plan" value="life" label="Lifetime" disabled />
-            </div>
+            <RadioGroup name="plan" defaultValue="month">
+              <Radio value="month" label="Monthly" />
+              <Radio value="year" label="Yearly" />
+              <Radio value="life" label="Lifetime" disabled />
+            </RadioGroup>
           </Spec>
         </Group>
 

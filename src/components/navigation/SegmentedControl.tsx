@@ -1,6 +1,7 @@
+import { Toggle } from '@base-ui/react/toggle'
+import { ToggleGroup } from '@base-ui/react/toggle-group'
 import { clsx } from 'clsx/lite'
-import type { HTMLAttributes, ReactNode } from 'react'
-import { useState } from 'react'
+import type { ReactNode } from 'react'
 
 import { focusRing } from '@/lib/styles'
 
@@ -9,12 +10,16 @@ export interface SegmentOption {
   value: string
 }
 
-export interface SegmentedControlProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SegmentedControlProps {
   options: SegmentOption[]
   value?: string
   defaultValue?: string
   onChange?: (value: string) => void
+  className?: string
 }
+
+const segment =
+  'rounded-none px-3 py-1.5 font-sans text-sm font-medium transition-colors ease-out hover:duration-0 text-mauve-600 hover:text-mauve-900 data-pressed:bg-rose-50 data-pressed:text-rose-700 dark:text-mauve-400 dark:hover:text-mauve-100 dark:data-pressed:bg-rose-400/15 dark:data-pressed:text-rose-300'
 
 export function SegmentedControl({
   options,
@@ -22,46 +27,24 @@ export function SegmentedControl({
   defaultValue,
   onChange,
   className = '',
-  ...rest
 }: SegmentedControlProps) {
-  const isControlled = value !== undefined
-  const [internal, setInternal] = useState(defaultValue ?? options[0]?.value)
-  const active = isControlled ? value : internal
-
-  const select = (next: string) => {
-    if (!isControlled) setInternal(next)
-    onChange?.(next)
-  }
-
   return (
-    <div
+    <ToggleGroup
+      value={value !== undefined ? [value] : undefined}
+      defaultValue={value === undefined ? [defaultValue ?? options[0]?.value] : undefined}
+      onValueChange={(next) => {
+        if (next.length) onChange?.(next[next.length - 1])
+      }}
       className={clsx(
         'inline-flex gap-0.5 rounded-none border border-mauve-300 p-0.5 dark:border-mauve-700',
         className
       )}
-      role="group"
-      {...rest}
     >
-      {options.map((option) => {
-        const pressed = active === option.value
-        return (
-          <button
-            key={option.value}
-            type="button"
-            aria-pressed={pressed}
-            onClick={() => select(option.value)}
-            className={clsx(
-              'rounded-none px-3 py-1.5 font-sans text-sm font-medium transition-colors ease-out hover:duration-0',
-              pressed
-                ? 'bg-rose-50 text-rose-700 dark:bg-rose-400/15 dark:text-rose-300'
-                : 'text-mauve-600 hover:text-mauve-900 dark:text-mauve-400 dark:hover:text-mauve-100',
-              focusRing
-            )}
-          >
-            {option.label}
-          </button>
-        )
-      })}
-    </div>
+      {options.map((option) => (
+        <Toggle key={option.value} value={option.value} className={clsx(segment, focusRing)}>
+          {option.label}
+        </Toggle>
+      ))}
+    </ToggleGroup>
   )
 }

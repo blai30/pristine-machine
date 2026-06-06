@@ -1,50 +1,33 @@
+import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip'
 import { clsx } from 'clsx/lite'
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 export type TooltipPlacement = 'top' | 'bottom'
 
-export interface TooltipProps extends HTMLAttributes<HTMLSpanElement> {
+export interface TooltipProps {
   label: ReactNode
   placement?: TooltipPlacement
+  children: ReactNode
+  className?: string
 }
 
-const bubbleBase =
-  'pointer-events-none absolute left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-none bg-mauve-900 px-2 py-1.5 font-mono text-xs leading-tight text-mauve-50 opacity-0 shadow-md shadow-rose-900/20 transition duration-150 ease-out dark:bg-mauve-100 dark:text-mauve-900'
+const popup =
+  'rounded-none bg-mauve-900 px-2 py-1.5 font-mono text-xs leading-tight text-mauve-50 shadow-md shadow-rose-900/20 transition-opacity duration-150 ease-out data-starting-style:opacity-0 data-ending-style:opacity-0 dark:bg-mauve-100 dark:text-mauve-900'
 
-const placements: Record<TooltipPlacement, { bubble: string; arrow: string }> = {
-  top: {
-    bubble:
-      'bottom-full mb-2 translate-y-1 group-hover:translate-y-0 group-focus-within:translate-y-0 group-hover:opacity-100 group-focus-within:opacity-100',
-    arrow: 'top-full -translate-y-1/2',
-  },
-  bottom: {
-    bubble:
-      'top-full mt-2 -translate-y-1 group-hover:translate-y-0 group-focus-within:translate-y-0 group-hover:opacity-100 group-focus-within:opacity-100',
-    arrow: 'bottom-full translate-y-1/2',
-  },
-}
-
-export function Tooltip({
-  children,
-  label,
-  placement = 'top',
-  className = '',
-  ...rest
-}: TooltipProps) {
-  const place = placements[placement]
+export function Tooltip({ label, placement = 'top', children, className = '' }: TooltipProps) {
   return (
-    <span className={clsx('group relative inline-flex', className)} {...rest}>
-      {children}
-      <span role="tooltip" className={clsx(bubbleBase, place.bubble)}>
-        {label}
-        <span
-          aria-hidden="true"
-          className={clsx(
-            'absolute left-1/2 size-2 -translate-x-1/2 rotate-45 bg-mauve-900 dark:bg-mauve-100',
-            place.arrow
-          )}
-        />
-      </span>
-    </span>
+    <BaseTooltip.Root>
+      <BaseTooltip.Trigger render={<span className={clsx('inline-flex', className)} />}>
+        {children}
+      </BaseTooltip.Trigger>
+      <BaseTooltip.Portal>
+        <BaseTooltip.Positioner side={placement} sideOffset={8} className="z-50">
+          <BaseTooltip.Popup className={popup}>
+            {label}
+            <BaseTooltip.Arrow className="size-2 rotate-45 bg-mauve-900 dark:bg-mauve-100" />
+          </BaseTooltip.Popup>
+        </BaseTooltip.Positioner>
+      </BaseTooltip.Portal>
+    </BaseTooltip.Root>
   )
 }

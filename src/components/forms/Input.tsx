@@ -1,3 +1,4 @@
+import { Field } from '@base-ui/react/field'
 import { clsx } from 'clsx/lite'
 import type { InputHTMLAttributes, ReactNode } from 'react'
 
@@ -41,17 +42,17 @@ export function Input({
   disabled = false,
   ...rest
 }: InputProps) {
-  const fieldId = id ?? (label ? `pm-${label.toLowerCase().replace(/\s+/g, '-')}` : undefined)
   return (
-    <div className={clsx('flex flex-col gap-1.5', className)}>
+    <Field.Root
+      className={clsx('flex flex-col gap-1.5', className)}
+      disabled={disabled}
+      invalid={Boolean(error)}
+    >
       {label && (
-        <label
-          className="font-sans text-sm font-medium text-mauve-900 dark:text-mauve-100"
-          htmlFor={fieldId}
-        >
+        <Field.Label className="font-sans text-sm font-medium text-mauve-900 dark:text-mauve-100">
           {label}
           {required && <span className="ml-0.5 text-rose-500 dark:text-rose-400">*</span>}
-        </label>
+        </Field.Label>
       )}
       <div
         className={clsx(boxBase, sizes[size], error ? boxError : boxResting)}
@@ -62,8 +63,9 @@ export function Input({
             {iconLeft}
           </span>
         )}
-        <input
-          id={fieldId}
+        <Field.Control
+          id={id}
+          required={required}
           disabled={disabled}
           className="min-w-0 flex-1 border-0 bg-transparent font-sans text-base text-inherit outline-none placeholder:text-mauve-400 dark:placeholder:text-mauve-600"
           {...rest}
@@ -74,16 +76,15 @@ export function Input({
           </span>
         )}
       </div>
-      {(error || hint) && (
-        <span
-          className={clsx(
-            'font-mono text-xs',
-            error ? 'text-red-600 dark:text-red-400' : 'text-mauve-500'
-          )}
-        >
-          {error || hint}
-        </span>
+      {error ? (
+        <Field.Error match className="font-mono text-xs text-red-600 dark:text-red-400">
+          {error}
+        </Field.Error>
+      ) : (
+        hint && (
+          <Field.Description className="font-mono text-xs text-mauve-500">{hint}</Field.Description>
+        )
       )}
-    </div>
+    </Field.Root>
   )
 }
