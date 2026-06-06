@@ -1,5 +1,6 @@
 import { ArrowDown, Moon, Palette, Sun } from 'lucide-react'
 
+import heroImage from '@/assets/hero.png'
 import {
   Badge,
   BlueprintDivider,
@@ -9,7 +10,6 @@ import {
   Navbar,
   Wordmark,
 } from '@/components'
-import heroImage from '@/assets/hero.png'
 import { eyebrow } from '@/lib/styles'
 import { Brand } from '@/showcase/Brand'
 import { Colors } from '@/showcase/Colors'
@@ -108,7 +108,13 @@ export default function App() {
       <footer className="flex flex-col gap-1 px-6 py-12 sm:px-10">
         <span className={eyebrow}>Pristine Machine</span>
         <p className="font-sans text-sm text-mauve-500">
-          Master design system · Tailwind CSS utilities only · light &amp; dark.
+          Master design system · All rights reserved &copy;{' '}
+          <a
+            href="https://github.com/blai30"
+            className="text-rose-700 hover:underline dark:text-rose-300"
+          >
+            blai30
+          </a>
         </p>
       </footer>
     </BlueprintFrame>

@@ -27,21 +27,9 @@ export function Scales() {
               Squared.
             </span>
             <div className="flex items-center gap-3">
-              <span className="size-16 rounded-none border border-mauve-300 bg-white shadow-sm shadow-rose-900/10 dark:border-mauve-700 dark:bg-mauve-800" />
-              <span className="inline-flex h-9 items-center rounded-none bg-rose-500 px-4 font-mono text-xs text-white dark:bg-rose-400 dark:text-rose-950">
+              <span className="rounded-none border border-mauve-300 bg-white px-6 py-4 font-mono text-rose-700 shadow-sm shadow-rose-900/10 dark:border-mauve-700 dark:bg-mauve-800 dark:text-rose-200">
                 rounded-none
               </span>
-              <span className="size-16 rounded-xl border border-mauve-300 bg-white shadow-sm shadow-rose-900/10 dark:border-mauve-700 dark:bg-mauve-800" />
-              <span className="inline-flex h-9 items-center rounded-full bg-mauve-200 px-4 font-mono text-xs text-mauve-600 dark:bg-mauve-700 dark:text-mauve-400">
-                rounded-full
-              </span>
-              <p className="max-w-xs font-sans text-sm text-mauve-600 dark:text-mauve-400">
-                Components default to{' '}
-                <code className="font-mono text-mauve-900 dark:text-mauve-100">rounded-none</code> for
-                a crisp, drafted feel — but the full Tailwind{' '}
-                <code className="font-mono text-mauve-900 dark:text-mauve-100">rounded-*</code> scale
-                stays available; rounding is never enforced away.
-              </p>
             </div>
           </div>
         </Spec>
@@ -53,7 +41,7 @@ export function Scales() {
                 <span
                   className={clsx(
                     'size-20 rounded-none border border-mauve-200 bg-white dark:border-mauve-700 dark:bg-mauve-800',
-                    shadow.cls,
+                    shadow.cls
                   )}
                 />
                 <span className="font-mono text-xs text-mauve-500">shadow-{shadow.name}</span>

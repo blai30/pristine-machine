@@ -31,6 +31,22 @@ const mauveRamp: Swatch[] = [
   { step: '950', bg: 'bg-mauve-950', text: 'text-white' },
 ]
 
+const lightSurfaces = [
+  { name: 'well', note: 'over-extend', bg: 'bg-mauve-50' },
+  { name: 'bg', note: 'canvas', bg: 'bg-mauve-100' },
+  { name: 'surface', note: 'cards', bg: 'bg-white' },
+  { name: 'surface-2', note: 'sunken', bg: 'bg-mauve-200' },
+  { name: 'accent-soft', note: 'tint', bg: 'bg-rose-50' },
+]
+
+const darkSurfaces = [
+  { name: 'well', note: 'over-extend', bg: 'bg-mauve-950' },
+  { name: 'bg', note: 'canvas', bg: 'bg-mauve-900' },
+  { name: 'surface', note: 'cards', bg: 'bg-mauve-800' },
+  { name: 'surface-2', note: 'sunken', bg: 'bg-mauve-700' },
+  { name: 'accent-soft', note: 'tint', bg: 'bg-rose-400/15' },
+]
+
 const semantics = [
   {
     name: 'Success',
@@ -56,22 +72,6 @@ const semantics = [
     soft: 'bg-blue-50 dark:bg-blue-400/15',
     label: 'text-blue-600 dark:text-blue-400',
   },
-]
-
-const lightSurfaces = [
-  { name: 'well', note: 'over-extend', bg: 'bg-mauve-50' },
-  { name: 'bg', note: 'canvas', bg: 'bg-mauve-100' },
-  { name: 'surface', note: 'cards', bg: 'bg-white' },
-  { name: 'surface-2', note: 'sunken', bg: 'bg-mauve-200' },
-  { name: 'accent-soft', note: 'tint', bg: 'bg-rose-50' },
-]
-
-const darkSurfaces = [
-  { name: 'well', note: 'over-extend', bg: 'bg-mauve-950' },
-  { name: 'bg', note: 'canvas', bg: 'bg-mauve-900' },
-  { name: 'surface', note: 'cards', bg: 'bg-mauve-800' },
-  { name: 'surface-2', note: 'sunken', bg: 'bg-mauve-700' },
-  { name: 'accent-soft', note: 'tint', bg: 'bg-rose-400/15' },
 ]
 
 function Ramp({ swatches }: { swatches: Swatch[] }) {
@@ -139,6 +139,15 @@ export function Colors() {
           <Ramp swatches={mauveRamp} />
         </Spec>
 
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <Spec name="Surfaces · light" row={false}>
+            <SurfaceTiles tiles={lightSurfaces} backing="bg-mauve-100" text="text-mauve-700" />
+          </Spec>
+          <Spec name="Surfaces · dark" row={false}>
+            <SurfaceTiles tiles={darkSurfaces} backing="bg-mauve-900" text="text-mauve-200" />
+          </Spec>
+        </div>
+
         <Spec name="Semantic states" row={false}>
           <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-4">
             {semantics.map((tone) => (
@@ -162,15 +171,6 @@ export function Colors() {
             ))}
           </div>
         </Spec>
-
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Spec name="Surfaces · light" row={false}>
-            <SurfaceTiles tiles={lightSurfaces} backing="bg-mauve-100" text="text-mauve-700" />
-          </Spec>
-          <Spec name="Surfaces · dark" row={false}>
-            <SurfaceTiles tiles={darkSurfaces} backing="bg-mauve-900" text="text-mauve-200" />
-          </Spec>
-        </div>
       </div>
     </Section>
   )
