@@ -1,12 +1,20 @@
+import { clsx } from 'clsx/lite'
 import type { ReactNode } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { syntax } from '@/components'
 import type { SyntaxKind } from '@/components'
 import { CodeSpecimen } from '@/showcase/CodeSpecimen'
 import { Section } from '@/showcase/ui'
 
-const legend: SyntaxKind[] = ['keyword', 'func', 'string', 'number', 'property', 'comment', 'punctuation']
+const legend: SyntaxKind[] = [
+  'keyword',
+  'func',
+  'string',
+  'number',
+  'property',
+  'comment',
+  'punctuation',
+]
 
 function SpecimenLine({ token, children }: { token: string; children: ReactNode }) {
   return (

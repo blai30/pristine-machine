@@ -1,6 +1,5 @@
-import type { HTMLAttributes } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { HTMLAttributes } from 'react'
 
 export type BadgeVariant =
   | 'neutral'

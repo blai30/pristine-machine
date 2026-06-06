@@ -1,8 +1,8 @@
+import { clsx } from 'clsx/lite'
 import { Check } from 'lucide-react'
 import { useState } from 'react'
 
 import { Badge, Button, Card, SegmentedControl } from '@/components'
-import { clsx } from 'clsx/lite'
 
 interface Tier {
   name: string
@@ -30,7 +30,12 @@ const tiers: Tier[] = [
     yearly: 19,
     cta: 'Choose Studio',
     popular: true,
-    features: ['Unlimited workspaces', 'Dark & light themes', 'Version history', 'Priority support'],
+    features: [
+      'Unlimited workspaces',
+      'Dark & light themes',
+      'Version history',
+      'Priority support',
+    ],
   },
   {
     name: 'Enterprise',
@@ -71,7 +76,9 @@ export function Pricing() {
           >
             <div className="flex flex-col gap-5">
               <div className="flex items-center justify-between gap-2">
-                <h4 className="font-serif text-2xl text-mauve-900 dark:text-mauve-100">{tier.name}</h4>
+                <h4 className="font-serif text-2xl text-mauve-900 dark:text-mauve-100">
+                  {tier.name}
+                </h4>
                 {tier.popular && <Badge variant="accent">Popular</Badge>}
               </div>
               <p className="font-sans text-sm text-mauve-600 dark:text-mauve-400">{tier.tagline}</p>

@@ -1,7 +1,7 @@
+import { clsx } from 'clsx/lite'
 import type { ReactNode } from 'react'
 import { Fragment } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { eyebrow } from '@/lib/styles'
 
 /** Strip punctuation and lowercase, so "Tailwind's" / "blossom," match cleanly. */

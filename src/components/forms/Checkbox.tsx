@@ -1,6 +1,5 @@
-import type { InputHTMLAttributes, ReactNode } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { InputHTMLAttributes, ReactNode } from 'react'
 
 export interface CheckControlProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: ReactNode

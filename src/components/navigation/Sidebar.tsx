@@ -1,6 +1,5 @@
-import type { HTMLAttributes } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { HTMLAttributes } from 'react'
 
 /**
  * Sticky full-height sidebar shell with a vertical rail. Compose a brand mark,
@@ -12,7 +11,7 @@ export function Sidebar({ children, className = 'flex', ...rest }: HTMLAttribute
     <aside
       className={clsx(
         'sticky top-0 h-screen w-64 shrink-0 flex-col gap-8 overflow-y-auto border-r border-mauve-300 p-6 dark:border-mauve-700',
-        className,
+        className
       )}
       {...rest}
     >

@@ -1,6 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 export type PlusCorner = 'tl' | 'tr' | 'bl' | 'br'
 
@@ -37,7 +36,7 @@ export function PlusTick({
       className={clsx(
         'pointer-events-none absolute z-10 size-3.5',
         (insetY ? cornerPosInsetY : cornerPos)[corner],
-        className,
+        className
       )}
     >
       <span className="absolute top-0 left-1/2 h-full w-0.5 -translate-x-1/2 bg-rose-500 dark:bg-rose-400" />

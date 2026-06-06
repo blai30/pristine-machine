@@ -39,18 +39,18 @@ Tailwind v4.3 ships a native `mauve` ramp — that's the whole reason this works
 
 **Surface ramp (apply by role; there are no tokens, so use the right shade directly):**
 
-| role | light | dark |
-|---|---|---|
-| canvas / `bg` | `mauve-100` | `mauve-900` |
-| card / raised | `white` | `mauve-800` |
-| fill (surface-2) | `mauve-200` | `mauve-700` |
-| **well / over-extend** (recessed inset) | `mauve-50` | `mauve-950` |
-| border / border-strong | `mauve-200` / `mauve-300` | `mauve-700` / `mauve-600` |
-| text / muted / subtle / faint | `mauve-900` / `600` / `500` / `400` | `mauve-100` / `400` / `500` / `600` |
+| role                                    | light                               | dark                                |
+| --------------------------------------- | ----------------------------------- | ----------------------------------- |
+| canvas / `bg`                           | `mauve-100`                         | `mauve-900`                         |
+| card / raised                           | `white`                             | `mauve-800`                         |
+| fill (surface-2)                        | `mauve-200`                         | `mauve-700`                         |
+| **well / over-extend** (recessed inset) | `mauve-50`                          | `mauve-950`                         |
+| border / border-strong                  | `mauve-200` / `mauve-300`           | `mauve-700` / `mauve-600`           |
+| text / muted / subtle / faint           | `mauve-900` / `600` / `500` / `400` | `mauve-100` / `400` / `500` / `600` |
 
 - **Well / over-extend** (`mauve-50` / `mauve-950`) is the recessed-inset surface — reads as a faint
   recess on white cards and a deep recess on dark cards. Use it for code blocks, sunken panels, wells.
-- **Corners are squared by default** (`rounded-none`), but rounding is *not* enforced — the full
+- **Corners are squared by default** (`rounded-none`), but rounding is _not_ enforced — the full
   Tailwind `rounded-*` scale stays available.
 - **Shadows:** Tailwind geometry, plum-tinted via colored-shadow utilities (`shadow-sm shadow-rose-900/10`,
   etc.) — never neutral black.
@@ -96,7 +96,7 @@ section/example into its own file rather than letting one grow large.
   genuinely need object/array syntax. Don't hand-build classNames with template literals or `+`.
 - **Type the props.** Variant/size options as `Record<Variant, string>` class maps.
 - **Separate layout from color.** Put structural classes in a `base` string and per-variant colors in
-  the variant map. Never let the *same* CSS property (e.g. `text-*`, `bg-*`) appear in both base and a
+  the variant map. Never let the _same_ CSS property (e.g. `text-*`, `bg-*`) appear in both base and a
   variant — Tailwind resolves conflicts by source order, not class order, so duplicates fight.
 - **Controlled + uncontrolled.** Stateful nav/form components accept `value`/`defaultValue`/`onChange`.
 - **Focus rings:** use the shared `focusRing` fragment.
@@ -104,7 +104,7 @@ section/example into its own file rather than letting one grow large.
 - **Peer/`has` pattern (Switch, Checkbox, Radio):** the visual indicator (thumb / checkmark) must be a
   **sibling** of the `peer` input, not nested inside the track — `peer-checked:` only reaches siblings.
   Drive the container's checked/focus state with `has-[:checked]` / `has-[:focus-visible]`.
-- **Variant precedence:** Tailwind sorts `hover` *before* `focus`/`focus-visible`/`focus-within` and
+- **Variant precedence:** Tailwind sorts `hover` _before_ `focus`/`focus-visible`/`focus-within` and
   before `has-[…]`/`peer-checked`. So a resting `hover:` style (e.g. a border darken) is automatically
   overridden when the control is focused or checked — layer `hover:` freely without guarding.
 - **Interactive form controls** (Input, Select, Switch, Checkbox/Radio) signal affordance with a hover

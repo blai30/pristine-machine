@@ -1,6 +1,6 @@
+import { clsx } from 'clsx/lite'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { focusRing } from '@/lib/styles'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'accentSoft' | 'danger'

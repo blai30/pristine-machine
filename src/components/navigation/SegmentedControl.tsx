@@ -1,7 +1,7 @@
+import { clsx } from 'clsx/lite'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { useState } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { focusRing } from '@/lib/styles'
 
 export interface SegmentOption {
@@ -51,7 +51,7 @@ export function SegmentedControl({
             aria-pressed={pressed}
             onClick={() => select(option.value)}
             className={clsx(
-              'rounded-none px-3 py-1.5 font-sans text-sm font-medium transition-colors hover:duration-0 ease-out',
+              'rounded-none px-3 py-1.5 font-sans text-sm font-medium transition-colors ease-out hover:duration-0',
               pressed
                 ? 'bg-rose-50 text-rose-700 dark:bg-rose-400/15 dark:text-rose-300'
                 : 'text-mauve-600 hover:text-mauve-900 dark:text-mauve-400 dark:hover:text-mauve-100',

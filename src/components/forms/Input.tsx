@@ -1,6 +1,5 @@
-import type { InputHTMLAttributes, ReactNode } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { InputHTMLAttributes, ReactNode } from 'react'
 
 export type InputSize = 'sm' | 'md' | 'lg'
 

@@ -1,6 +1,5 @@
-import type { InputHTMLAttributes, ReactNode } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { InputHTMLAttributes, ReactNode } from 'react'
 
 export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: ReactNode
@@ -10,7 +9,7 @@ export function Switch({ label, disabled = false, className = '', ...rest }: Swi
   return (
     <label
       className={clsx(
-        'inline-flex select-none items-center gap-2.5 font-sans text-base text-mauve-900 dark:text-mauve-100',
+        'inline-flex items-center gap-2.5 font-sans text-base text-mauve-900 select-none dark:text-mauve-100',
         disabled && 'pointer-events-none opacity-50',
         className
       )}

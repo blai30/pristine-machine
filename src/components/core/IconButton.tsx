@@ -1,6 +1,6 @@
+import { clsx } from 'clsx/lite'
 import type { ButtonHTMLAttributes } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { focusRing } from '@/lib/styles'
 
 export type IconButtonVariant = 'ghost' | 'solid' | 'outline'

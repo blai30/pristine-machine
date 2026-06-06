@@ -1,7 +1,6 @@
+import { clsx } from 'clsx/lite'
 import { GitBranch, Info, RefreshCw, Rocket, Settings, Waypoints } from 'lucide-react'
 import { useState } from 'react'
-
-import { clsx } from 'clsx/lite'
 
 import {
   Badge,

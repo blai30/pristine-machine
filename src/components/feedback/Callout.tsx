@@ -1,6 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 export type CalloutVariant = 'neutral' | 'accent' | 'info' | 'success' | 'warning' | 'danger'
 

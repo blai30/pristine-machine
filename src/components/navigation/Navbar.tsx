@@ -1,6 +1,6 @@
+import { clsx } from 'clsx/lite'
 import type { HTMLAttributes, ReactNode } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { focusRing } from '@/lib/styles'
 
 export interface NavbarItem {
@@ -36,7 +36,7 @@ export function Navbar({
       className={clsx(
         'z-20 flex items-center gap-6 border-b border-mauve-300 bg-mauve-100/90 px-6 py-3 backdrop-blur-xl sm:px-10 dark:border-mauve-700 dark:bg-mauve-900/90',
         sticky ? 'sticky top-0' : 'relative',
-        className,
+        className
       )}
       {...rest}
     >
@@ -55,11 +55,11 @@ export function Navbar({
                 aria-current={active ? 'true' : undefined}
                 onClick={() => onNavigate?.(item.id)}
                 className={clsx(
-                  'rounded-none py-1 font-mono text-xs font-medium tracking-widest uppercase whitespace-nowrap transition-colors duration-150 ease-out',
+                  'rounded-none py-1 font-mono text-xs font-medium tracking-widest whitespace-nowrap uppercase transition-colors duration-150 ease-out',
                   active
                     ? 'text-rose-600 dark:text-rose-300'
                     : 'text-mauve-500 hover:text-mauve-900 dark:text-mauve-400 dark:hover:text-mauve-100',
-                  focusRing,
+                  focusRing
                 )}
               >
                 {item.label}

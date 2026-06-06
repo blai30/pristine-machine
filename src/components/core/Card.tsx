@@ -1,6 +1,5 @@
-import type { HTMLAttributes } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { HTMLAttributes } from 'react'
 
 export type CardVariant = 'default' | 'flat' | 'raised'
 
@@ -45,7 +44,7 @@ export function Card({
 export function CardHeader({ children, className = '', ...rest }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={clsx('px-5 py-4 border-b border-mauve-200 dark:border-mauve-700', className)}
+      className={clsx('border-b border-mauve-200 px-5 py-4 dark:border-mauve-700', className)}
       {...rest}
     >
       {children}
@@ -56,7 +55,10 @@ export function CardHeader({ children, className = '', ...rest }: HTMLAttributes
 export function CardFooter({ children, className = '', ...rest }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={clsx('px-5 py-4 mt-auto border-t border-mauve-200 dark:border-mauve-700', className)}
+      className={clsx(
+        'mt-auto border-t border-mauve-200 px-5 py-4 dark:border-mauve-700',
+        className
+      )}
       {...rest}
     >
       {children}

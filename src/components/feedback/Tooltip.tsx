@@ -1,6 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 export type TooltipPlacement = 'top' | 'bottom'
 

@@ -1,6 +1,5 @@
-import type { ReactNode } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { ReactNode } from 'react'
 
 /**
  * Token color classes for hand-highlighted code, tuned to the Pristine Machine palette:

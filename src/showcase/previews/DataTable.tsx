@@ -1,7 +1,16 @@
 import { MoreHorizontal, Plus, Search } from 'lucide-react'
 import { useState } from 'react'
 
-import { Badge, Button, Card, Checkbox, IconButton, Input, SegmentedControl, Switch } from '@/components'
+import {
+  Badge,
+  Button,
+  Card,
+  Checkbox,
+  IconButton,
+  Input,
+  SegmentedControl,
+  Switch,
+} from '@/components'
 
 interface Member {
   name: string
@@ -12,10 +21,34 @@ interface Member {
 }
 
 const members: Member[] = [
-  { name: 'Ada Lovelace', email: 'ada@pristine.dev', role: 'Owner', status: 'Active', initials: 'AL' },
-  { name: 'Alan Turing', email: 'alan@pristine.dev', role: 'Admin', status: 'Active', initials: 'AT' },
-  { name: 'Grace Hopper', email: 'grace@pristine.dev', role: 'Member', status: 'Invited', initials: 'GH' },
-  { name: 'Katherine Johnson', email: 'kj@pristine.dev', role: 'Member', status: 'Active', initials: 'KJ' },
+  {
+    name: 'Ada Lovelace',
+    email: 'ada@pristine.dev',
+    role: 'Owner',
+    status: 'Active',
+    initials: 'AL',
+  },
+  {
+    name: 'Alan Turing',
+    email: 'alan@pristine.dev',
+    role: 'Admin',
+    status: 'Active',
+    initials: 'AT',
+  },
+  {
+    name: 'Grace Hopper',
+    email: 'grace@pristine.dev',
+    role: 'Member',
+    status: 'Invited',
+    initials: 'GH',
+  },
+  {
+    name: 'Katherine Johnson',
+    email: 'kj@pristine.dev',
+    role: 'Member',
+    status: 'Active',
+    initials: 'KJ',
+  },
 ]
 
 const th = 'px-2 py-3 font-mono text-xs font-medium uppercase tracking-widest text-mauve-400'
@@ -58,7 +91,10 @@ export function DataTable() {
           </thead>
           <tbody>
             {members.map((member) => (
-              <tr key={member.email} className="border-b border-mauve-200 last:border-0 dark:border-mauve-700">
+              <tr
+                key={member.email}
+                className="border-b border-mauve-200 last:border-0 dark:border-mauve-700"
+              >
                 <td className="px-5 py-3 align-middle">
                   <Checkbox aria-label={`Select ${member.name}`} />
                 </td>
@@ -84,7 +120,10 @@ export function DataTable() {
                   </Badge>
                 </td>
                 <td className="px-2 py-3 align-middle">
-                  <Switch defaultChecked={member.status === 'Active'} aria-label={`Access for ${member.name}`} />
+                  <Switch
+                    defaultChecked={member.status === 'Active'}
+                    aria-label={`Access for ${member.name}`}
+                  />
                 </td>
                 <td className="px-5 py-3 text-right align-middle">
                   <IconButton label={`Actions for ${member.name}`} variant="ghost" size="sm">

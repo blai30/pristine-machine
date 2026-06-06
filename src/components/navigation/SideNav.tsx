@@ -1,6 +1,6 @@
+import { clsx } from 'clsx/lite'
 import type { HTMLAttributes, ReactNode } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { focusRing } from '@/lib/styles'
 
 export interface SideNavItem {
@@ -33,14 +33,16 @@ export function SideNav({ sections, activeId, onNavigate, className = '', ...res
             href={`#${section.id}`}
             onClick={() => onNavigate?.(section.id)}
             className={clsx(
-              'font-mono text-xs font-medium uppercase tracking-widest transition-colors duration-150 ease-out',
+              'font-mono text-xs font-medium tracking-widest uppercase transition-colors duration-150 ease-out',
               activeId === section.id
                 ? 'text-mauve-900 dark:text-mauve-100'
                 : 'text-mauve-500 hover:text-mauve-900 dark:hover:text-mauve-100',
-              focusRing,
+              focusRing
             )}
           >
-            {section.number != null && <span className="text-rose-500 dark:text-rose-400">{section.number}.</span>}{' '}
+            {section.number != null && (
+              <span className="text-rose-500 dark:text-rose-400">{section.number}.</span>
+            )}{' '}
             {section.label}
           </a>
           {section.items && section.items.length > 0 && (
@@ -58,7 +60,7 @@ export function SideNav({ sections, activeId, onNavigate, className = '', ...res
                         active
                           ? 'border-rose-500 text-rose-700 dark:border-rose-400 dark:text-rose-300'
                           : 'border-mauve-200 text-mauve-600 hover:border-mauve-400 hover:text-mauve-900 dark:border-mauve-700 dark:text-mauve-400 dark:hover:text-mauve-100',
-                        focusRing,
+                        focusRing
                       )}
                     >
                       {item.label}

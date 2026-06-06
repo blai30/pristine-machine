@@ -1,4 +1,5 @@
 import { clsx } from 'clsx/lite'
+
 import { Section, Spec } from '@/showcase/ui'
 
 type Swatch = { step: string; bg: string; text: string }
@@ -80,7 +81,11 @@ function Ramp({ swatches }: { swatches: Swatch[] }) {
       {swatches.map((swatch) => (
         <div
           key={swatch.step}
-          className={clsx('flex h-20 flex-1 items-end p-2 font-mono text-xs', swatch.bg, swatch.text)}
+          className={clsx(
+            'flex h-20 flex-1 items-end p-2 font-mono text-xs',
+            swatch.bg,
+            swatch.text
+          )}
         >
           {swatch.step}
         </div>
@@ -154,7 +159,7 @@ export function Colors() {
               <div key={tone.name} className="flex flex-col gap-2">
                 <span
                   className={clsx(
-                    'font-mono text-xs font-medium uppercase tracking-widest',
+                    'font-mono text-xs font-medium tracking-widest uppercase',
                     tone.label
                   )}
                 >

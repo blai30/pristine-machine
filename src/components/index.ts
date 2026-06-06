@@ -2,7 +2,11 @@
 export { Button } from '@/components/core/Button'
 export type { ButtonProps, ButtonVariant, ButtonSize } from '@/components/core/Button'
 export { IconButton } from '@/components/core/IconButton'
-export type { IconButtonProps, IconButtonVariant, IconButtonSize } from '@/components/core/IconButton'
+export type {
+  IconButtonProps,
+  IconButtonVariant,
+  IconButtonSize,
+} from '@/components/core/IconButton'
 export { Badge } from '@/components/core/Badge'
 export type { BadgeProps, BadgeVariant } from '@/components/core/Badge'
 export { Card, CardHeader, CardFooter } from '@/components/core/Card'

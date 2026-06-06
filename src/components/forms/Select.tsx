@@ -1,6 +1,5 @@
-import type { SelectHTMLAttributes } from 'react'
-
 import { clsx } from 'clsx/lite'
+import type { SelectHTMLAttributes } from 'react'
 
 export type SelectProps = SelectHTMLAttributes<HTMLSelectElement>
 
@@ -15,7 +14,7 @@ export function Select({ children, className = '', ...rest }: SelectProps) {
       </select>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute right-2.5 size-2 -translate-y-0.5 rotate-45 border-r-2 border-b-2 border-current text-mauve-500 transition-colors hover:duration-0 ease-out group-hover:text-mauve-700 dark:group-hover:text-mauve-300"
+        className="pointer-events-none absolute right-2.5 size-2 -translate-y-0.5 rotate-45 border-r-2 border-b-2 border-current text-mauve-500 transition-colors ease-out group-hover:text-mauve-700 hover:duration-0 dark:group-hover:text-mauve-300"
       />
     </span>
   )

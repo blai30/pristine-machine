@@ -1,7 +1,7 @@
+import { clsx } from 'clsx/lite'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { useState } from 'react'
 
-import { clsx } from 'clsx/lite'
 import { focusRing } from '@/lib/styles'
 
 export interface TabItem {
@@ -42,7 +42,7 @@ export function Tabs({ items, value, defaultValue, onChange, className = '', ...
             aria-selected={selected}
             onClick={() => select(item.value)}
             className={clsx(
-              'relative rounded-none px-3.5 py-2.5 font-sans text-base font-medium transition-colors hover:duration-0 ease-out',
+              'relative rounded-none px-3.5 py-2.5 font-sans text-base font-medium transition-colors ease-out hover:duration-0',
               selected
                 ? 'text-rose-700 dark:text-rose-300'
                 : 'text-mauve-600 hover:text-mauve-900 dark:text-mauve-400 dark:hover:text-mauve-100',
