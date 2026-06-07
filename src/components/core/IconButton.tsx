@@ -14,7 +14,7 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 const base =
-  'inline-flex items-center justify-center p-0 rounded-none border border-transparent transition hover:duration-0 ease-out active:scale-[0.94] disabled:opacity-50 disabled:pointer-events-none [&_svg]:size-[1.15em]'
+  'inline-flex items-center justify-center p-0 rounded-none border transition hover:duration-0 ease-out active:scale-[0.94] disabled:opacity-50 disabled:pointer-events-none [&_svg]:size-[1.15em]'
 
 const sizes: Record<IconButtonSize, string> = {
   sm: 'size-7',
@@ -24,9 +24,9 @@ const sizes: Record<IconButtonSize, string> = {
 
 const variants: Record<IconButtonVariant, string> = {
   ghost:
-    'text-mauve-600 hover:bg-mauve-200 hover:text-mauve-900 dark:text-mauve-400 dark:hover:bg-mauve-700 dark:hover:text-mauve-100',
+    'border-transparent text-mauve-600 hover:bg-mauve-200 hover:text-mauve-900 dark:text-mauve-400 dark:hover:bg-mauve-700 dark:hover:text-mauve-100',
   solid:
-    'bg-rose-500 text-white hover:bg-rose-600 dark:bg-rose-400 dark:text-rose-950 dark:hover:bg-rose-300',
+    'border-transparent bg-rose-500 text-white hover:bg-rose-600 dark:bg-rose-400 dark:text-rose-950 dark:hover:bg-rose-300',
   outline:
     'text-mauve-900 border-mauve-300 hover:bg-mauve-200 dark:text-mauve-100 dark:border-mauve-700 dark:hover:bg-mauve-700',
 }
