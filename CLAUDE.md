@@ -5,9 +5,12 @@ plum-blossom (梅花) take on a draughtsman's blueprint: editorial serif display
 JetBrains Mono annotations, squared corners, structural line-work, plum-tinted everything, first-class
 light and dark.
 
-Stack: **Vite 8 · TypeScript 6 · React 19 (React Compiler) · Tailwind CSS v4.3 · Base UI
-(`@base-ui/react`)**. Package manager: **pnpm**. The interactive components are headless Base UI
-primitives wearing Tailwind classes — behavior/accessibility from Base UI, every pixel from utilities.
+Stack: **Vite 8 · TypeScript 6 · React 19 (React Compiler) · Tailwind CSS v4.3**. Package manager: **pnpm**.
+
+> **Deep reference:** [`docs/design-system.md`](docs/design-system.md) is the comprehensive
+> source of truth — philosophy, full foundations, the complete component catalog, and rationale.
+> Consult it when you need more than the quick rules below. This file is the operational
+> quick-reference; keep the two in sync.
 
 ---
 
@@ -24,13 +27,6 @@ These are the project's reason for existing. They override default habits — fo
    already in use: the spring easing `ease-[cubic-bezier(0.34,1.56,0.64,1)]`, em-relative icon sizing
    (`[&_svg]:size-[1.1em]`, `1.15em`, `1.125rem`), tiny press scales (`scale-[0.99]`/`scale-[0.94]`),
    and the `has-[:checked]` / `has-[:focus-visible]` variant selectors. Don't add new ones casually.
-   Base UI **state variants** (`data-checked:`, `data-selected:`, `data-pressed:`, `data-highlighted:`,
-   `data-popup-open:`, `data-disabled:`, `data-starting-style:`/`data-ending-style:`, `group-data-selected:`)
-   are first-class Tailwind v4 variants and are preferred over the old `peer`/`has-` pattern for those
-   components. The one sanctioned CSS-var size is the Select popup's `min-w-(--anchor-width)` (matches
-   the popup to its trigger). **Base UI's floating parts (Tooltip/Select/Dialog) inject their own inline
-   positioning styles at runtime via Floating UI** — that is library-managed and allowed; you still never
-   hand-write a `style=` attribute, and `src/index.css` stays untouched.
 
 Before finishing any change: `git diff src/index.css` must be empty; grep `src/` for `style=` (none)
 and for `px]` / `[#` (none).
@@ -78,8 +74,7 @@ font-medium uppercase tracking-widest text-mauve-500` (exported as `eyebrow` in 
 src/
   components/            reusable design-system components, by category (barrel: index.ts)
     core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock
-    forms/               Input, Select (native), SelectMenu (Base UI popup), Switch,
-                         Checkbox, Radio + RadioGroup
+    forms/               Input, Select, Switch, Checkbox + Radio
     feedback/            Callout, Tooltip
     navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
@@ -111,15 +106,12 @@ section/example into its own file rather than letting one grow large.
 - **Controlled + uncontrolled.** Stateful nav/form components accept `value`/`defaultValue`/`onChange`.
 - **Focus rings:** use the shared `focusRing` fragment.
 - **Icons:** `lucide-react`; size relative to text with `[&_svg]:size-[1.1em]`-style classes.
-- **State styling = Base UI `data-*` variants** (Switch, Checkbox, Radio, Tabs, SegmentedControl,
-  Select popup, etc.): the indicator (thumb / checkmark / underline) is a child of the Base UI part and
-  reacts to `data-checked:`/`data-selected:`/`data-pressed:` on itself or its ancestor (`group` +
-  `group-data-selected:`). The control's Root **is** the real focusable element, so put `focus-visible:`
-  directly on it (no more `has-[:focus-visible]`). The old `peer`/`has-[:checked]` sibling pattern is
-  retired for migrated components.
-- **Variant precedence:** Tailwind sorts `hover` _before_ `focus`/`focus-visible` and before
-  `data-[…]`. So a resting `hover:` style (e.g. a border darken) is automatically overridden when the
-  control is focused or in a `data-checked`/`data-selected`/`data-pressed` state — layer `hover:` freely.
+- **Peer/`has` pattern (Switch, Checkbox, Radio):** the visual indicator (thumb / checkmark) must be a
+  **sibling** of the `peer` input, not nested inside the track — `peer-checked:` only reaches siblings.
+  Drive the container's checked/focus state with `has-[:checked]` / `has-[:focus-visible]`.
+- **Variant precedence:** Tailwind sorts `hover` _before_ `focus`/`focus-visible`/`focus-within` and
+  before `has-[…]`/`peer-checked`. So a resting `hover:` style (e.g. a border darken) is automatically
+  overridden when the control is focused or checked — layer `hover:` freely without guarding.
 - **Interactive form controls** (Input, Select, Switch, Checkbox/Radio) signal affordance with a hover
   border-darken (`hover:border-mauve-400` / `dark:hover:border-mauve-600`), not `cursor-pointer`.
 - **Dynamic classes must be literal.** Tailwind's JIT can't see `bg-mauve-${n}`; use explicit class
@@ -137,66 +129,14 @@ section/example into its own file rather than letting one grow large.
 
 ---
 
-## Built on Base UI
-
-Interactive components are thin Tailwind skins over `@base-ui/react` headless primitives. Behavior,
-keyboard nav, focus management, and ARIA come from Base UI; appearance is 100% utilities.
-
-- **Import per-part** from the subpath: `import { Switch } from '@base-ui/react/switch'` (also `/checkbox`,
-  `/radio`, `/radio-group`, `/tabs`, `/toggle`, `/toggle-group`, `/dialog`, `/tooltip`, `/field`,
-  `/select`). Wrap each in a project component that keeps a small, stable public API and adds the classes.
-- **Composition:** style each anatomy part via its `className` (string, or `(state) => string`). Use the
-  **`render` prop** (Base UI's `asChild`) to swap the rendered element or mount an existing component as
-  a trigger — e.g. `Tooltip.Trigger render={<span … />}`.
-- **`Tooltip.Provider` is mounted once** at the top of `App.tsx` (shared open-delay/grouping). Tooltips
-  won't share timing without it.
-- **Forms use `Field`** (`Field.Root`/`Label`/`Control`/`Description`/`Error`). `Input` wires
-  label/hint/error to the control automatically (`aria-describedby`, `aria-invalid`); drive the invalid
-  state with `Field.Root invalid={…}` and render `Field.Error match` for a controlled message.
-- **Radio requires a group:** `RadioGroup` (holds `name`/`value`/`defaultValue`/`onValueChange`) wrapping
-  `Radio value=…`. A bare `<Radio>` outside a group won't track selection.
-- **Two Selects, by design:** `Select` stays the native `<select>` wrapper (zero popup, no floating
-  layer); `SelectMenu` is the Base UI custom popup (keyboard nav, styled options on the card surface,
-  `data-highlighted`/`data-selected` rows). Pick native for simple cases, `SelectMenu` for styled menus.
-- **`Drawer` is Base UI `Dialog`** (Backdrop + Popup) presented as an edge panel — it traps focus, locks
-  scroll, restores focus on close, and dismisses on scrim-click / Escape. Slide via
-  `data-starting-style:`/`data-ending-style:` translate classes. Same `open`/`onClose`/`side` API as before.
-- **Wrapper APIs are preserved** so the showcase/`previews/*` keep working: `Tabs`/`SegmentedControl`
-  still take `items`/`options` + `value`/`defaultValue`/`onChange`; `Tooltip` still takes
-  `label`/`placement`/`children`. Internally these map to Base UI's `onValueChange`/parts.
-
-**State attributes differ per component** — target the right one (a wrong guess silently no-ops, since
-Tailwind happily compiles a variant for an attribute that never appears). The ones in use:
-
-| component                       | active/on state   | other states                                                          |
-| ------------------------------- | ----------------- | --------------------------------------------------------------------- |
-| Switch / Checkbox / Radio       | `data-checked`    | `data-disabled`, `data-unchecked`                                     |
-| Tabs (`Tabs.Tab`)               | `data-active`     | `data-disabled`, `data-orientation`                                   |
-| SegmentedControl (`Toggle`)     | `data-pressed`    | `data-disabled`                                                       |
-| SelectMenu item (`Select.Item`) | `data-selected`   | `data-highlighted` (keyboard/pointer focus row)                       |
-| Select/Tooltip/Dialog trigger   | `data-popup-open` | —                                                                     |
-| Drawer / Tooltip / Select popup | `data-open`       | `data-closed`, `data-starting-style`/`data-ending-style`, `data-side` |
-| Field-wrapped control (`Input`) | `data-invalid`    | `data-valid`, `data-dirty`, `data-touched`, `data-filled`             |
-
-Note especially: **Tabs is `data-active`, not `data-selected`** (`data-selected` is the Select-item
-attribute). When unsure, check `node_modules/@base-ui/react/esm/<part>/.../*DataAttributes.d.ts`.
-
-**Future primitives roadmap** (not built yet — add each as its own showcase section, built strictly from
-this same data-attr/render pattern): standalone **Dialog**/**AlertDialog**, **Popover**, **Menu** /
-**Menubar** / **ContextMenu**, **Accordion**/**Collapsible**, **NumberField**, **Slider**, **Toast**,
-**Toolbar**, **Progress**/**Meter**, **ScrollArea**, **Separator**, **Avatar**, **Autocomplete/Combobox**.
-
----
-
 ## Showcase conventions
 
 - Single page in `App.tsx`: numbered `SectionGroup`s (`01`/`02`/`03`, ordinal in the accent) + footer,
   all inside `BlueprintFrame`, separated by ticked `BlueprintDivider`s.
 - **Responsive nav:** a sticky `Navbar` (top-level sections — Foundations / Components / Live Preview)
   on `lg+` (`max-lg:hidden`); below `lg` it swaps to a sticky bar + hamburger that opens a `Drawer`
-  (the reusable off-canvas component, now a Base UI `Dialog`) holding the `SideNav`. `Drawer` is
-  `open`/`onClose`-controlled, slides over a dimmed scrim, traps focus, locks scroll, and closes on
-  scrim-click / Escape with focus restored to the trigger.
+  (the reusable off-canvas component) holding the `SideNav`. `Drawer` is `open`/`onClose`-controlled,
+  slides over a dimmed scrim, closes on scrim-click / Escape, and is `inert` when closed.
 - `useScrollSpy` tracks the top-level section ids for the navbar active state; `nav.ts` is the shared
   nav model.
 - Live Preview = real interfaces assembled **only** from the primitives (deploy console, pricing,
@@ -233,3 +173,7 @@ Keep this file current. When you learn something durable that isn't captured her
 a non-obvious gotcha, a decision, a constraint, a reusable component or pattern — **ask the user whether
 to add it to CLAUDE.md** (don't add silently, and don't record one-off details). Proactively offer to
 update it after any substantive change or hard-won lesson.
+
+Substantive design-system changes also belong in [`docs/design-system.md`](docs/design-system.md) — the
+in-depth source of truth. Keep the two in sync: this file for day-to-day rules, the doc for full detail
+and rationale.
