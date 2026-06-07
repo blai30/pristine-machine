@@ -1,26 +1,18 @@
 # Pristine Machine
 
-A master design system and live showcase — a plum-blossom (梅花) take on a draughtsman's
-blueprint. Editorial serif display, Geist UI text, JetBrains Mono annotations, squared corners,
-structural line-work, plum-tinted everything, and first-class light **and** dark modes.
+A master design system and live showcase — a plum-blossom (梅花) take on a draughtsman's blueprint. Editorial serif display, Geist UI text, JetBrains Mono annotations, squared corners, structural line-work, plum-tinted everything, and first-class light **and** dark modes.
 
 The repository contains two things:
 
-- **The design system** — a catalog of reusable, accessibly-built React components (buttons, forms,
-  navigation, feedback, brand marks) authored entirely with Tailwind utilities and built on top of
-  [Base UI](https://base-ui.com) primitives.
-- **The showcase** — a single-page live preview site that documents the foundations (color,
-  typography, scale), demonstrates every component, and assembles them into real interfaces (a
-  deploy console, pricing page, data table, and product page).
+- **The design system** — a catalog of reusable, accessibly-built React components (buttons, forms, navigation, feedback, brand marks) authored entirely with Tailwind utilities and built on top of [Base UI](https://base-ui.com) primitives.
+- **The showcase** — a single-page live preview site that documents the foundations (color, typography, scale), demonstrates every component, and assembles them into real interfaces (a deploy console, pricing page, data table, and product page).
 
-> **Looking for the deep reference?** [`docs/design-system.md`](docs/design-system.md) is the
-> comprehensive source of truth — design philosophy, full foundations, the complete component
-> catalog, and the rationale behind every decision. This README stays high level.
+> **Looking for the deep reference?** [`docs/design-system.md`](docs/design-system.md) is the comprehensive source of truth — design philosophy, full foundations, the complete component catalog, and the rationale behind every decision. This README stays high level.
 
 ## Tech stack
 
 | Layer           | Choice                                                           |
-| --------------- | -----------------------------------------------------------------|
+| --------------- | ---------------------------------------------------------------- |
 | Build tool      | [Vite](https://vite.dev)                                         |
 | Language        | TypeScript · TSX                                                 |
 | UI runtime      | React (with the React Compiler)                                  |
@@ -30,9 +22,7 @@ The repository contains two things:
 | Lint / format   | oxlint · oxfmt                                                   |
 | Package manager | [pnpm](https://pnpm.io)                                          |
 
-Styling is intentionally constrained: components are composed from native Tailwind v4.3 utilities
-(the `mauve` and `rose` ramps do the heavy lifting) with no custom CSS, no inline styles, and no
-design tokens beyond three font families.
+Styling is intentionally constrained: components are composed from native Tailwind v4.3 utilities (the `mauve` and `rose` ramps do the heavy lifting) with no custom CSS, no inline styles, and no design tokens beyond three font families.
 
 ## Quick start
 
