@@ -1,3 +1,5 @@
+![Pristine Machine, a plum-blossom blueprint design system](https://raw.githubusercontent.com/blai30/pristine-machine/main/public/og.png)
+
 # Pristine Machine
 
 A master design system and live showcase — a plum-blossom (梅花) take on a draughtsman's blueprint. Editorial serif display, Geist UI text, JetBrains Mono annotations, squared corners, structural line-work, plum-tinted everything, and first-class light **and** dark modes.
