@@ -6,6 +6,8 @@ Stack: **Vite 8 · TypeScript 6 · React 19 (React Compiler) · Tailwind CSS v4.
 
 > **Deep reference:** [`docs/design-system.md`](docs/design-system.md) is the comprehensive source of truth — philosophy, full foundations, the complete component catalog, and rationale. Consult it when you need more than the quick rules below. This file is the operational quick-reference; keep the two in sync.
 
+**Single package, dual purpose:** the repo root is the publishable library (`@pristine-machine/ui`) and also hosts the live showcase that consumes it. The library lives in `src/components` + `src/lib` (public barrel `src/index.ts`); the showcase lives in `src/showcase` + `src/App.tsx` and imports the library straight from source via `@/components`. Two Vite configs: `vite.config.ts` builds the showcase site (to `dist-site`), `vite.lib.config.ts` builds the publishable library (to `dist`). See [`README.md`](README.md#using-the-library) for consumer install and usage and [`docs/superpowers/specs/2026-06-08-pristine-machine-package-design.md`](docs/superpowers/specs/2026-06-08-pristine-machine-package-design.md) for the packaging rationale.
+
 ---
 
 ## Non-negotiable styling rules
@@ -13,11 +15,11 @@ Stack: **Vite 8 · TypeScript 6 · React 19 (React Compiler) · Tailwind CSS v4.
 These are the project's reason for existing. They override default habits — follow them exactly.
 
 1. **Tailwind utility classes only.** Never write custom CSS. Never use the inline `style` attribute.
-2. **Never touch `src/index.css`.** Do not add to `@theme`, do not introduce CSS variables/tokens. It declares only three font families (`--font-sans` Geist, `--font-serif` Instrument Serif, `--font-mono` JetBrains Mono) and the `dark` variant. Fonts load from Google Fonts in `index.html`.
+2. **No CSS variables/tokens; keep the two CSS files minimal.** The only hand-written CSS is `preset.css` at the repo root (the three font families -- `--font-sans` Geist, `--font-serif` Instrument Serif, `--font-mono` JetBrains Mono -- plus the `dark` variant; this is the file the published package exports) and `src/index.css` (only `@import 'tailwindcss'` then `@import '../preset.css'`). Never add `@theme` color tokens or any other CSS variables to either (the font-family block in `preset.css` is the only sanctioned `@theme` use). Fonts load from Google Fonts in `index.html`.
 3. **No `px` values.** Use Tailwind's predefined scale (`rem`-based).
 4. **Arbitrary values (`[...]`) only when truly unavoidable, and never `px`.** The sanctioned ones already in use: the spring easing `ease-[cubic-bezier(0.34,1.56,0.64,1)]`, em-relative icon sizing (`[&_svg]:size-[1.1em]`, `1.15em`, `1.125rem`), tiny press scales (`scale-[0.99]`/`scale-[0.94]`), and the `has-[:checked]` / `has-[:focus-visible]` variant selectors. Don't add new ones casually.
 
-Before finishing any change: `git diff src/index.css` must be empty; grep `src/` for `style=` (none) and for `px]` / `[#` (none).
+Before finishing any change: the only CSS touched should be `preset.css` / `src/index.css` (and only their minimal contents above); grep `src/` for `style=` (none) and for `px]` / `[#` (none).
 
 ---
 
@@ -45,7 +47,7 @@ Tailwind v4.3 ships a native `mauve` ramp — that's the whole reason this works
 - **Shadows:** Tailwind geometry, plum-tinted via colored-shadow utilities (`shadow-sm shadow-rose-900/10`, etc.) — never neutral black.
 - **Dark mode is class-based** (`.dark` on `<html>`, toggled by `useTheme`). **Every** surface/border/text class needs a `dark:` counterpart.
 
-**Typography roles:** display → `font-serif` (Instrument Serif, large only) · body/UI → `font-sans` (Geist) · code/labels/metadata → `font-mono` (JetBrains Mono). Eyebrow label = `font-mono text-xs font-medium uppercase tracking-widest text-mauve-500` (exported as `eyebrow` in `src/lib/styles.ts`).
+**Typography roles:** display → `font-serif` (Instrument Serif, large only) · body/UI → `font-sans` (Geist) · code/labels/metadata → `font-mono` (JetBrains Mono). Eyebrow label = `font-mono text-xs font-medium uppercase tracking-widest text-mauve-500` (exported as `eyebrow` from `src/lib/styles.ts`, re-exported by the package barrel `src/index.ts`).
 
 ---
 
@@ -61,14 +63,18 @@ src/
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
   lib/
     styles.ts            shared class fragments: focusRing, eyebrow
+  index.ts               public API barrel (published entry point)
   showcase/              the live preview site (NOT part of the component library)
     useTheme.ts, useScrollSpy.ts, nav.ts, ui.tsx (Section/SectionGroup/Spec/Eyebrow)
     Colors / Typography / Scales / Brand / Components / LivePreview / CodeSpecimen
     previews/            DeployConsole, Pricing, DataTable, ProductPage
   App.tsx                composes the showcase inside a BlueprintFrame
+preset.css               published Tailwind preset: font families + dark variant (no tokens)
+vite.config.ts           showcase site build (→ dist-site)
+vite.lib.config.ts       library build (→ dist; vite-plugin-dts, Rollup preserveModules)
 ```
 
-Use the **`@/` path alias** for all intra-`src` imports (`@/*` → `src/*`, configured in `tsconfig.app.json` paths + `vite.config.ts` `resolve.alias`) — never relative `./`/`../`. Import components from the barrel (`@/components`), not deep paths. Keep files focused — split a section/example into its own file rather than letting one grow large.
+Use the **`@/` path alias** for all intra-`src` imports (`@/*` → `src/*`, configured in `tsconfig.app.json` paths + both Vite configs' `resolve.alias`); never relative `./`/`../`. Import components from the barrel (`@/components`), not deep paths. Keep files focused - split a section/example into its own file rather than letting one grow large.
 
 ---
 
@@ -104,16 +110,17 @@ Use the **`@/` path alias** for all intra-`src` imports (`@/*` → `src/*`, conf
 
 - `pnpm dev` — Vite dev server (http://localhost:5173).
 - `pnpm build` — `tsc -b && vite build` (must pass; this is the type-check gate).
+- `pnpm build:lib` builds the publishable library to `dist` (`vite build -c vite.lib.config.ts`). Run before publishing.
 - `pnpm lint` — oxlint. `pnpm fmt` — oxfmt.
 - oxfmt/oxlint auto-format (single quotes, class/attribute ordering, etc.). Don't fight the formatter; re-read files before editing since it may have reflowed them.
-- `vite.config.ts` must keep the `@tailwindcss/vite` plugin — without it no utilities compile.
+- The showcase `vite.config.ts` must keep the `@tailwindcss/vite` plugin - without it no utilities compile. The library build (`vite.lib.config.ts`) does NOT use it (the consumer's Tailwind compiles the classes); it uses `vite-plugin-dts` + Rollup `preserveModules` so each component emits its own file with literal class strings intact for source-scanning, and ships no React Compiler output.
 
 ## Verifying a change
 
 1. `pnpm build` and `pnpm lint` both pass.
 2. Visually check with **Playwright (external browser, headless)** in **both light and dark** — toggle via `localStorage 'pm-theme'` + the `.dark` class on `<html>`.
 3. Confirm no horizontal overflow (`document.documentElement.scrollWidth - clientWidth === 0`).
-4. Re-confirm the styling rules: `src/index.css` untouched, no inline styles, no `px`/new arbitrary values.
+4. Re-confirm the styling rules: only `preset.css` / `src/index.css` touched (and only their minimal contents), no inline styles, no `px`/new arbitrary values.
 5. Clean up any screenshot artifacts (`pm-*.png`, `.playwright-mcp/`) when done.
 
 ## Maintaining this file

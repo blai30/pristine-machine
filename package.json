@@ -1,11 +1,29 @@
 {
-  "name": "pristine-machine",
+  "name": "@pristine-machine/ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Pristine Machine — a plum-blossom and blueprint inspired design system.",
+  "license": "Apache-2.0",
   "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./preset.css": "./preset.css"
+  },
+  "files": [
+    "dist",
+    "preset.css",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lib": "vite build -c vite.lib.config.ts",
     "preview": "vite preview",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
@@ -15,25 +33,30 @@
   "dependencies": {
     "@base-ui/react": "^1.5.0",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.17.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "tailwindcss": "^4.3.0"
+    "lucide-react": "^1.17.0"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19",
+    "tailwindcss": ">=4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@rolldown/plugin-babel": "^0.2.3",
     "@tailwindcss/vite": "^4.3.0",
     "@types/babel__core": "^7.20.5",
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.16",
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "babel-plugin-react-compiler": "^1.0.0",
-    "globals": "^17.6.0",
     "oxfmt": "^0.53.0",
     "oxlint": "^1.68.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^4.3.0",
     "typescript": "~6.0.3",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "vite-plugin-dts": "^5.0.2"
   }
 }

@@ -41,7 +41,7 @@ The voice is _quietly precise_ — measured and structural without being cold.
 These constraints are the project's reason for existing. They are absolute.
 
 1. **Tailwind utility classes only.** No custom CSS is ever written. No inline `style` attribute is ever used. Styling lives entirely in class names.
-2. **The base stylesheet is frozen.** `src/index.css` is never modified. It declares only three font families (`--font-sans` Geist, `--font-serif` Instrument Serif, `--font-mono` JetBrains Mono) and the class-based `dark` variant. Fonts load from Google Fonts in `index.html`. There is **no `@theme` extension and there are no custom CSS tokens** — the system is expressed purely through Tailwind's native scales.
+2. **Two minimal CSS files; no variables or tokens.** `preset.css` at the repo root holds only the three font families (`--font-sans` Geist, `--font-serif` Instrument Serif, `--font-mono` JetBrains Mono) and the class-based `dark` variant -- it is the file the published package exports. `src/index.css` holds only `@import 'tailwindcss'` then `@import '../preset.css'`. `preset.css` uses `@theme` solely for the three font families (plus the `dark` variant); no color tokens or any other CSS variables are added to either file. Fonts load from Google Fonts in `index.html`. The system is expressed purely through Tailwind's native scales.
 3. **No `px` values.** Everything uses Tailwind's predefined, `rem`-based scale.
 4. **Arbitrary values are a last resort.** `[...]` arbitrary values are used only when a thing is genuinely impossible with the standard scale — and never with `px`. The sanctioned set in use:
    - the spring easing `ease-[cubic-bezier(0.34,1.56,0.64,1)]`,
@@ -319,6 +319,8 @@ Foundations are documented with live swatch ramps (rose, mauve), the semantic gr
 
 ## 10. Project structure & tooling
 
+The repo root is the publishable library (`@pristine-machine/ui`) and also hosts the live showcase. Two Vite configs handle the two outputs: `vite.config.ts` builds the showcase site (to `dist-site`); `vite.lib.config.ts` builds the publishable library (to `dist`, using `vite-plugin-dts` and Rollup `preserveModules` so each component emits its own file with literal class strings intact for source-scanning). `preset.css` at the repo root is the published Tailwind preset; consumers import it to get the font families and `dark` variant. `src/index.ts` is the public API barrel.
+
 ```
 src/
   components/            reusable components, by category (barrel: index.ts)
@@ -328,19 +330,23 @@ src/
     navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
   lib/
-    cn → clsx/lite       (class composition; no custom helper)
-    styles.ts            shared class fragments: focusRing, eyebrow
+    styles.ts            shared class fragments (focusRing, eyebrow); class composition uses clsx/lite directly, no cn helper
+  index.ts               public API barrel (published entry point)
   showcase/              the live preview site (not part of the library)
     useTheme.ts, useScrollSpy.ts, nav.ts, ui.tsx (Section/SectionGroup/Spec/Eyebrow)
     Colors / Typography / Scales / Brand / Components / LivePreview / CodeSpecimen
     previews/            DeployConsole, Pricing, DataTable, ProductPage
   App.tsx                composes the showcase inside a BlueprintFrame
+preset.css               published Tailwind preset: font families + dark variant (no tokens)
+vite.config.ts           showcase site build (-> dist-site)
+vite.lib.config.ts       library build (-> dist)
 ```
 
 **Commands**
 
 - `pnpm dev` — Vite dev server (http://localhost:5173).
 - `pnpm build` — `tsc -b && vite build` (the type-check gate; must pass).
+- `pnpm build:lib` builds the publishable library to `dist` (`vite build -c vite.lib.config.ts`). Run before publishing.
 - `pnpm lint` — oxlint · `pnpm fmt` — oxfmt (don't fight the formatter; re-read files after it reflows).
 
 **Verifying a change**
@@ -348,7 +354,7 @@ src/
 1. `pnpm build` and `pnpm lint` pass.
 2. Check visually in **both light and dark** (toggle `localStorage 'pm-theme'` + the `.dark` class on `<html>`).
 3. Confirm no horizontal overflow (`document.documentElement.scrollWidth - clientWidth === 0`).
-4. Re-confirm the constraints: `src/index.css` untouched, no inline styles, no `px`/new arbitrary values.
+4. Re-confirm the constraints: only `preset.css` / `src/index.css` touched (and only their minimal contents), no inline styles, no `px`/new arbitrary values.
 
 ---
 

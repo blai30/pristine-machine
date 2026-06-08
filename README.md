@@ -33,6 +33,32 @@ pnpm install # install dependencies
 pnpm dev     # start the Vite dev server → http://localhost:5173
 ```
 
+## Using the library
+
+> Note: this package is not yet published to npm (it is currently `private`). The install command below will work once it is published.
+
+Install the package and its peers (React 19+ (`react` and `react-dom`) and Tailwind CSS v4.3+):
+
+```sh
+npm install @pristine-machine/ui
+```
+
+Wire the preset and source-scan into your Tailwind entry CSS:
+
+```css
+@import 'tailwindcss';
+@import '@pristine-machine/ui/preset.css';
+@source '../node_modules/@pristine-machine/ui';
+```
+
+The `@source` path is relative to your CSS entry file; use `./node_modules/...` instead if that file sits at your project root.
+
+Load the three fonts (Geist, Instrument Serif, JetBrains Mono), for example via Google Fonts, then import components:
+
+```tsx
+import { Button, Card } from '@pristine-machine/ui'
+```
+
 ## Project layout
 
 ```
