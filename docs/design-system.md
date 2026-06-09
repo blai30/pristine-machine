@@ -334,7 +334,7 @@ Built on Base UI. These are **compound**: each exports a namespace object whose 
 
 Compound, built on Base UI. Panel height animates via Base UI's exposed CSS variable.
 
-**Accordion** - stacked expandable sections. `Root, Item, Trigger, Panel` (`Trigger` bundles the header + a rotating chevron). Pass `openMultiple` on `Root` for multiple open panels.
+**Accordion** - stacked expandable sections. `Root, Item, Trigger, Panel` (`Trigger` bundles the header + a rotating chevron). Pass `multiple` on `Root` for multiple open panels.
 
 **Collapsible** - a single expandable section. `Root, Trigger, Panel`. The primitive Accordion is built on.
 

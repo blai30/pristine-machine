@@ -116,12 +116,23 @@ Use the **`@/` path alias** for all intra-`src` imports (`@/*` → `src/*`, conf
 - `pnpm build` — `tsc -b && vite build` (must pass; this is the type-check gate).
 - `pnpm build:lib` builds the publishable library to `dist` (`vite build -c vite.lib.config.ts`). Run before publishing.
 - `pnpm lint` — oxlint. `pnpm fmt` — oxfmt.
+- `pnpm test` runs the Vitest suite once; `pnpm test:watch` for watch mode; `pnpm test:coverage` enforces coverage thresholds. See **Testing** below.
 - oxfmt/oxlint auto-format (single quotes, class/attribute ordering, etc.). Don't fight the formatter; re-read files before editing since it may have reflowed them.
 - The showcase `vite.config.ts` must keep the `@tailwindcss/vite` plugin - without it no utilities compile. The library build (`vite.lib.config.ts`) does NOT use it (the consumer's Tailwind compiles the classes); it uses `vite-plugin-dts` + Rollup `preserveModules` so each component emits its own file with literal class strings intact for source-scanning, and ships no React Compiler output.
 
+## Testing
+
+Vitest in jsdom, with React Testing Library + `@testing-library/user-event` + jest-dom matchers. A dedicated `vitest.config.ts` (separate from `vite.config.ts`) runs the React plugin only, deliberately skipping Tailwind and the React Compiler since jsdom never renders CSS.
+
+- **Layout:** tests are colocated next to source as `*.test.tsx` / `*.test.ts`. Shared helpers live in `src/test/`: `setup.ts` (jest-dom + the jsdom polyfills Base UI needs - `matchMedia`, `ResizeObserver`, `IntersectionObserver`, `scrollIntoView`, pointer-capture) and `render.tsx` (the single import surface: re-exports RTL plus `setupUser()`). Import the runner globals explicitly from `vitest` (no `globals: true`); import test utilities from `@/test/render`.
+- **What to assert:** since Tailwind CSS is not applied in jsdom, assert on **literal class fragments** (`toHaveClass('bg-rose-500')`) and on Base UI's **`data-*` / ARIA state** (`data-checked`, `aria-expanded`, `aria-selected`, `aria-pressed`), not computed styles. For semantic-tone components, a useful regression guard is that each tone string carries both a light and a `dark:` class.
+- **Base UI gotchas (learned):** overlays/menus/selects render through a portal, so query the open popup with `findBy*` and reach portal content via `document` when needed. Toast controls are `aria-hidden` until focused, so grab the close button by `document.querySelector('[aria-label="Dismiss"]')` rather than `getByRole`. `AlertDialog` closes on Escape but not on outside/backdrop click (that is the only dismissal it blocks). The Accordion "multiple open" prop is Base UI's `multiple`, not `openMultiple`.
+- **Coverage:** scoped to the library (`src/components`, `src/lib`) plus the showcase's logic-bearing helpers (`nav.ts`, `useTheme.ts`, `useScrollSpy.ts`, `ui.tsx`); the rest of the showcase is presentational composition, verified visually instead. Thresholds are enforced in `vitest.config.ts`.
+- **Package hygiene:** `tsconfig.lib.json` excludes `**/*.test.*` so no test declarations leak into the published `dist`. The generated `coverage/` dir is gitignored.
+
 ## Verifying a change
 
-1. `pnpm build` and `pnpm lint` both pass.
+1. `pnpm build` and `pnpm lint` both pass, and `pnpm test` is green (add or update tests for the change).
 2. Visually check with **Playwright (external browser, headless)** in **both light and dark** — toggle via `localStorage 'pm-theme'` + the `.dark` class on `<html>`.
 3. Confirm no horizontal overflow (`document.documentElement.scrollWidth - clientWidth === 0`).
 4. Re-confirm the styling rules: only `preset.css` / `src/index.css` touched (and only their minimal contents), no inline styles, no `px`/new arbitrary values.

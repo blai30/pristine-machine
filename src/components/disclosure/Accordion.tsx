@@ -53,7 +53,7 @@ function AccordionPanel({ className = '', children, ...rest }: PanelProps) {
 
 /**
  * Stacked expandable sections built on Base UI Accordion. `Trigger` bundles the header and
- * its rotating chevron; `Panel` animates its height. Pass `openMultiple` on `Root` to allow
+ * its rotating chevron; `Panel` animates its height. Pass `multiple` on `Root` to allow
  * several panels open at once. Compose: `Root > Item > (Trigger, Panel)`.
  */
 export const Accordion = {
