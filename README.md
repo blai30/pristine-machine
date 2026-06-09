@@ -37,8 +37,6 @@ pnpm dev     # start the Vite dev server → http://localhost:5173
 
 ## Using the library
 
-> Note: this package is not yet published to npm (it is currently `private`). The install command below will work once it is published.
-
 Install the package and its peers (React 19+ (`react` and `react-dom`) and Tailwind CSS v4.3+):
 
 ```sh
