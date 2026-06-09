@@ -38,15 +38,16 @@ export function Brand() {
         </Spec>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Spec name="Wordmark" row={false}>
-            <div className="flex flex-col items-start gap-8 rounded-none border border-mauve-200 bg-white p-8 dark:border-mauve-700 dark:bg-mauve-800">
-              <Wordmark />
-              <Wordmark compact />
+          <Spec name="On paper (light)" row={false}>
+            <div className="flex min-h-full flex-col items-start gap-8 rounded-none border border-mauve-200 bg-white p-8">
+              <Wordmark theme="light" />
+              <Wordmark theme="light" compact />
             </div>
           </Spec>
-          <Spec name="On aubergine" row={false}>
-            <div className="dark flex min-h-full items-center rounded-none border border-mauve-700 bg-mauve-900 p-8">
-              <Wordmark />
+          <Spec name="On aubergine (dark)" row={false}>
+            <div className="flex min-h-full flex-col items-start gap-8 rounded-none border border-mauve-700 bg-mauve-900 p-8">
+              <Wordmark theme="dark" />
+              <Wordmark theme="dark" compact />
             </div>
           </Spec>
         </div>

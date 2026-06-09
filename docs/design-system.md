@@ -176,6 +176,7 @@ Dark mode is **class-based**: a `.dark` class on `<html>` (the `dark` variant is
 
 - `compact` — drop the subtitle.
 - `size` — `'sm'` (`text-2xl`) or `'lg'` (`text-5xl`, default).
+- `theme` sets which palette the lockup uses: `'auto'` (default, follows `.dark`), `'light'`, or `'dark'`. The locked variants emit no `dark:` classes, so a `'light'` or `'dark'` wordmark keeps its colors regardless of the ambient theme. Use it on a fixed-color surface (an always-dark footer, a printed-on-paper card) or to show both themes side by side at once. Since `.dark` is a descendant selector, an element under it cannot be forced back to light by a parent class; rendering light-only utilities is how a permanently-light lockup is achieved without a custom `light` variant.
 
 ### 5.2 The blueprint frame
 
