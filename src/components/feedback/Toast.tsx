@@ -3,10 +3,10 @@ import { clsx } from 'clsx/lite'
 import { Check, Info, TriangleAlert, X } from 'lucide-react'
 import type { ReactNode } from 'react'
 
+import { semanticTone, type SemanticTone } from '@/lib/styles'
+
 /** Imperative toast manager hook. Call `useToast().add({ title, description, type })`. */
 export const useToast = BaseToast.useToastManager
-
-type ToastTone = 'info' | 'success' | 'warning' | 'danger'
 
 const viewport =
   'fixed top-4 right-4 left-4 z-50 flex flex-col gap-2 outline-none sm:left-auto sm:w-80'
@@ -17,25 +17,25 @@ const root =
 const close =
   'inline-flex size-7 shrink-0 items-center justify-center rounded-none text-mauve-500 transition-colors ease-out hover:bg-mauve-200 hover:text-mauve-900 hover:duration-0 focus-visible:ring-2 focus-visible:ring-rose-500/30 focus-visible:outline-none dark:hover:bg-mauve-700 dark:hover:text-mauve-100 dark:focus-visible:ring-rose-400/25 [&_svg]:size-4'
 
-const tones: Record<ToastTone, { border: string; icon: string; glyph: ReactNode }> = {
+const tones: Record<SemanticTone, { edge: string; icon: string; glyph: ReactNode }> = {
   info: {
-    border: 'border-l-blue-400 dark:border-l-blue-600',
-    icon: 'text-blue-600 dark:text-blue-400',
+    edge: semanticTone.info.edge,
+    icon: semanticTone.info.fg,
     glyph: <Info className="size-5" />,
   },
   success: {
-    border: 'border-l-emerald-400 dark:border-l-emerald-600',
-    icon: 'text-emerald-600 dark:text-emerald-400',
+    edge: semanticTone.success.edge,
+    icon: semanticTone.success.fg,
     glyph: <Check className="size-5" />,
   },
   warning: {
-    border: 'border-l-amber-400 dark:border-l-amber-600',
-    icon: 'text-amber-600 dark:text-amber-400',
+    edge: semanticTone.warning.edge,
+    icon: semanticTone.warning.fg,
     glyph: <TriangleAlert className="size-5" />,
   },
   danger: {
-    border: 'border-l-red-400 dark:border-l-red-600',
-    icon: 'text-red-600 dark:text-red-400',
+    edge: semanticTone.danger.edge,
+    icon: semanticTone.danger.fg,
     glyph: <TriangleAlert className="size-5" />,
   },
 }
@@ -43,13 +43,13 @@ const tones: Record<ToastTone, { border: string; icon: string; glyph: ReactNode 
 function ToastList() {
   const { toasts } = BaseToast.useToastManager()
   return toasts.map((toast) => {
-    const tone = tones[toast.type as ToastTone]
+    const tone = tones[toast.type as SemanticTone]
     return (
       <BaseToast.Root
         key={toast.id}
         toast={toast}
         swipeDirection="right"
-        className={clsx(root, tone?.border)}
+        className={clsx(root, tone?.edge)}
       >
         {tone && (
           <span className={clsx('mt-px inline-flex shrink-0', tone.icon)} aria-hidden="true">

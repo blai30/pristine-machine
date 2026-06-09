@@ -73,7 +73,7 @@ src/
     overlays/   Dialog, AlertDialog, Popover, Menu, PreviewCard
     disclosure/ Accordion, Collapsible
     brand/      Wordmark, Blueprint frame primitives
-  lib/          shared class fragments (focus rings, eyebrow labels)
+  lib/          shared class fragments (focus rings, eyebrow labels, semantic tone ramp)
   showcase/     the live preview site (not part of the component library)
   App.tsx       composes the showcase inside a blueprint frame
 ```

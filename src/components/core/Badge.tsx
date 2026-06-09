@@ -1,6 +1,8 @@
 import { clsx } from 'clsx/lite'
 import type { HTMLAttributes } from 'react'
 
+import { semanticTone, type SemanticTone } from '@/lib/styles'
+
 export type BadgeVariant =
   | 'neutral'
   | 'accent'
@@ -21,15 +23,17 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 const base =
   'inline-flex items-center gap-1 h-6 px-2 rounded-none border font-mono text-xs font-medium tracking-wide leading-none whitespace-nowrap'
 
+const semantic = (tone: SemanticTone) =>
+  clsx('border-transparent', semanticTone[tone].fill, semanticTone[tone].fg)
+
 const variants: Record<BadgeVariant, string> = {
   neutral:
     'bg-mauve-200 text-mauve-600 border-mauve-200 dark:bg-mauve-700 dark:text-mauve-400 dark:border-mauve-700',
   accent: 'border-transparent bg-rose-50 text-rose-700 dark:bg-rose-400/15 dark:text-rose-300',
-  success:
-    'border-transparent bg-emerald-50 text-emerald-600 dark:bg-emerald-400/15 dark:text-emerald-400',
-  warning: 'border-transparent bg-amber-50 text-amber-600 dark:bg-amber-400/15 dark:text-amber-400',
-  danger: 'border-transparent bg-red-50 text-red-600 dark:bg-red-400/15 dark:text-red-400',
-  info: 'border-transparent bg-blue-50 text-blue-600 dark:bg-blue-400/15 dark:text-blue-400',
+  success: semantic('success'),
+  warning: semantic('warning'),
+  danger: semantic('danger'),
+  info: semantic('info'),
   solid: 'border-transparent bg-rose-500 text-white dark:bg-rose-400 dark:text-rose-950',
 }
 

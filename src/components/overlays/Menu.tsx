@@ -20,9 +20,9 @@ type PopupProps = Omit<BaseMenu.Popup.Props, 'className'> & {
 
 function MenuPopup({
   className = '',
-  side = 'bottom',
+  side,
   align = 'start',
-  sideOffset = 4,
+  sideOffset = 0,
   children,
   ...rest
 }: PopupProps) {

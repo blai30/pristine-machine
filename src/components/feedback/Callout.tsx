@@ -1,6 +1,8 @@
 import { clsx } from 'clsx/lite'
 import type { HTMLAttributes, ReactNode } from 'react'
 
+import { semanticTone, type SemanticTone } from '@/lib/styles'
+
 export type CalloutVariant = 'neutral' | 'accent' | 'info' | 'success' | 'warning' | 'danger'
 
 export interface CalloutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -12,6 +14,11 @@ export interface CalloutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'titl
 const base =
   'flex gap-3 px-4 py-3.5 rounded-none border border-l-4 font-sans text-base leading-normal text-mauve-900 dark:text-mauve-100'
 
+const semantic = (tone: SemanticTone) => ({
+  box: clsx(semanticTone[tone].fill, semanticTone[tone].border),
+  icon: semanticTone[tone].fg,
+})
+
 const tones: Record<CalloutVariant, { box: string; icon: string }> = {
   neutral: {
     box: 'bg-mauve-200 border-mauve-300 dark:bg-mauve-700 dark:border-mauve-600',
@@ -21,22 +28,10 @@ const tones: Record<CalloutVariant, { box: string; icon: string }> = {
     box: 'bg-rose-50 border-rose-400 dark:bg-rose-400/15 dark:border-rose-600',
     icon: 'text-rose-500 dark:text-rose-400',
   },
-  info: {
-    box: 'bg-blue-50 border-blue-400 dark:bg-blue-400/15 dark:border-blue-600',
-    icon: 'text-blue-600 dark:text-blue-400',
-  },
-  success: {
-    box: 'bg-emerald-50 border-emerald-400 dark:bg-emerald-400/15 dark:border-emerald-600',
-    icon: 'text-emerald-600 dark:text-emerald-400',
-  },
-  warning: {
-    box: 'bg-amber-50 border-amber-400 dark:bg-amber-400/15 dark:border-amber-600',
-    icon: 'text-amber-600 dark:text-amber-400',
-  },
-  danger: {
-    box: 'bg-red-50 border-red-400 dark:bg-red-400/15 dark:border-red-600',
-    icon: 'text-red-600 dark:text-red-400',
-  },
+  info: semantic('info'),
+  success: semantic('success'),
+  warning: semantic('warning'),
+  danger: semantic('danger'),
 }
 
 export function Callout({

@@ -29,7 +29,7 @@ Tailwind v4.3 ships a native `mauve` ramp — that's the whole reason this works
 
 - **Accent:** `rose` (blossom). **Neutrals:** `mauve` (plum-tinted).
 - **Semantics:** `emerald` success · `amber` warning · `red` danger · `blue` info / "blueprint".
-- **Foreground tones light/dark:** semantics use the `600`/`400` step; their soft fills use `50` / `400-with-/15-alpha`.
+- **Foreground tones light/dark:** semantics use the `600`/`400` step; their soft fills use `50` / `400-with-/15-alpha`. This ramp is codified once in `semanticTone` (`src/lib/styles.ts`, facets `fill`/`fg`/`border`/`edge`); `Badge`, `Callout`, and `Toast` source their status hues from it. Extend `semanticTone` when adding a status hue rather than hand-typing the steps.
 
 **Surface ramp (apply by role; there are no tokens, so use the right shade directly):**
 
@@ -64,7 +64,7 @@ src/
     disclosure/          Accordion, Collapsible
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
   lib/
-    styles.ts            shared class fragments: focusRing, eyebrow
+    styles.ts            shared class fragments: focusRing, eyebrow, semanticTone (status-hue ramp)
   index.ts               public API barrel (published entry point)
   showcase/              the live preview site (NOT part of the component library)
     useTheme.ts, useScrollSpy.ts, nav.ts, ui.tsx (Section/SectionGroup/Spec/Eyebrow)

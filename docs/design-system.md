@@ -101,6 +101,8 @@ There are no design tokens. Each role maps to a specific Tailwind shade; apply t
 
 Convention: semantic **foregrounds** use the `600` step in light and `400` in dark; **soft fills** use `50` in light and the `400/15` alpha in dark.
 
+This mapping is codified once as `semanticTone` in `src/lib/styles.ts` (re-exported from the package barrel), keyed by the four status hues with four facets each: `fill` (soft surface), `fg` (the 600/400 foreground), `border` (the all-sides 400/600 edge), and `edge` (that same step as a left-only accent bar). `Badge`, `Callout`, and `Toast` select the facets their shape needs instead of re-deriving the steps. This is the documented-mapping exception to the "repeated Tailwind classes are fine" rule: the ramp is a spec, so it lives in one place. Their `neutral` (mauve) and `accent` (rose) variants are intentionally not in the map, as they use different steps and serve a brand/canvas role rather than status. Add a status hue by extending `semanticTone`, not by hand-typing classes in a component.
+
 ### 4.2 Surfaces & elevation
 
 Apply by role (there are no tokens — use the shade directly):
@@ -393,7 +395,7 @@ src/
     disclosure/          Accordion, Collapsible
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
   lib/
-    styles.ts            shared class fragments (focusRing, eyebrow); class composition uses clsx/lite directly, no cn helper
+    styles.ts            shared class fragments (focusRing, eyebrow, semanticTone); class composition uses clsx/lite directly, no cn helper
   index.ts               public API barrel (published entry point)
   showcase/              the live preview site (not part of the library)
     useTheme.ts, useScrollSpy.ts, nav.ts, ui.tsx (Section/SectionGroup/Spec/Eyebrow)
