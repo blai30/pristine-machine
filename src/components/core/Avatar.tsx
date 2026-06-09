@@ -3,7 +3,7 @@ import { clsx } from 'clsx/lite'
 
 export type AvatarSize = 'sm' | 'md' | 'lg'
 
-export interface AvatarProps {
+export type AvatarProps = {
   /** Image source; falls back to initials when absent or it fails to load. */
   src?: string
   /** Used for the alt text and to derive the initials fallback. */

@@ -17,7 +17,7 @@ import {
 
 const statLabel = 'font-mono text-xs font-medium uppercase tracking-widest text-mauve-400'
 
-interface Deploy {
+type Deploy = {
   status: 'Ready' | 'Failed'
   title: string
   branch: string

@@ -5,7 +5,7 @@ import { semanticTone, type SemanticTone } from '@/lib/styles'
 
 export type CalloutVariant = 'neutral' | 'accent' | 'info' | 'success' | 'warning' | 'danger'
 
-export interface CalloutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+export type CalloutProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
   variant?: CalloutVariant
   title?: ReactNode
   icon?: ReactNode

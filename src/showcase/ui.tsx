@@ -47,7 +47,7 @@ function EmphasizedTitle({ title, emphasis }: { title: string; emphasis?: string
   )
 }
 
-export function Eyebrow({ children, className = '' }: { children: ReactNode; className?: string }) {
+function Eyebrow({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <span className={clsx(eyebrow, className)}>{children}</span>
 }
 

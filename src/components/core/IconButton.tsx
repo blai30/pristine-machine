@@ -6,7 +6,7 @@ import { focusRing } from '@/lib/styles'
 export type IconButtonVariant = 'ghost' | 'solid' | 'outline'
 export type IconButtonSize = 'sm' | 'md' | 'lg'
 
-export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: IconButtonVariant
   size?: IconButtonSize
   /** Required for accessibility — used as aria-label and title. */

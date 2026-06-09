@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 export type TooltipPlacement = 'top' | 'bottom'
 
-export interface TooltipProps {
+export type TooltipProps = {
   label: ReactNode
   placement?: TooltipPlacement
   children: ReactNode

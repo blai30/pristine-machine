@@ -3,12 +3,12 @@ import type { HTMLAttributes, ReactNode } from 'react'
 
 import { focusRing } from '@/lib/styles'
 
-export interface NavbarItem {
+export type NavbarItem = {
   id: string
   label: ReactNode
 }
 
-export interface NavbarProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
+export type NavbarProps = Omit<HTMLAttributes<HTMLElement>, 'onChange'> & {
   items?: NavbarItem[]
   /** Id of the active item — highlighted in the accent color with an underline. */
   activeId?: string

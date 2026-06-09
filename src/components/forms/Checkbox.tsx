@@ -13,7 +13,7 @@ const boxBase =
 const markBase =
   'pointer-events-none absolute inset-0 flex items-center justify-center scale-0 transition-transform duration-150 ease-[cubic-bezier(0.34,1.56,0.64,1)] data-checked:scale-100'
 
-export interface CheckboxProps extends Omit<BaseCheckbox.Root.Props, 'className' | 'render'> {
+export type CheckboxProps = Omit<BaseCheckbox.Root.Props, 'className' | 'render'> & {
   label?: ReactNode
   className?: string
 }
@@ -31,7 +31,7 @@ export function Checkbox({ label, disabled = false, className = '', ...rest }: C
   )
 }
 
-export interface RadioProps extends Omit<BaseRadio.Root.Props, 'className' | 'render'> {
+export type RadioProps = Omit<BaseRadio.Root.Props, 'className' | 'render'> & {
   label?: ReactNode
   className?: string
 }
@@ -49,7 +49,7 @@ export function Radio({ label, disabled = false, className = '', ...rest }: Radi
   )
 }
 
-export interface RadioGroupProps extends Omit<BaseRadioGroup.Props, 'className' | 'render'> {
+export type RadioGroupProps = Omit<BaseRadioGroup.Props, 'className' | 'render'> & {
   className?: string
 }
 

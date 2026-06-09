@@ -5,12 +5,12 @@ import type { ReactNode } from 'react'
 
 import { focusRing } from '@/lib/styles'
 
-export interface SegmentOption {
+export type SegmentOption = {
   label: ReactNode
   value: string
 }
 
-export interface SegmentedControlProps {
+export type SegmentedControlProps = {
   options: SegmentOption[]
   value?: string
   defaultValue?: string

@@ -4,12 +4,12 @@ import type { ReactNode } from 'react'
 
 import { focusRing } from '@/lib/styles'
 
-export interface TabItem {
+export type TabItem = {
   label: ReactNode
   value: string
 }
 
-export interface TabsProps {
+export type TabsProps = {
   items: TabItem[]
   value?: string
   defaultValue?: string

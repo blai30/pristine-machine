@@ -3,12 +3,12 @@ import { clsx } from 'clsx/lite'
 import { Check } from 'lucide-react'
 import type { ReactNode } from 'react'
 
-export interface SelectItem {
+export type SelectItem = {
   label: ReactNode
   value: string
 }
 
-export interface SelectProps {
+export type SelectProps = {
   items: SelectItem[]
   value?: string
   defaultValue?: string

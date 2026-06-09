@@ -2,7 +2,7 @@ import { Switch as BaseSwitch } from '@base-ui/react/switch'
 import { clsx } from 'clsx/lite'
 import type { ReactNode } from 'react'
 
-export interface SwitchProps extends Omit<BaseSwitch.Root.Props, 'className' | 'render'> {
+export type SwitchProps = Omit<BaseSwitch.Root.Props, 'className' | 'render'> & {
   label?: ReactNode
   className?: string
 }

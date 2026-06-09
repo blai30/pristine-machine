@@ -18,7 +18,7 @@ export const syntax = {
 
 export type SyntaxKind = keyof typeof syntax
 
-export interface CodeBlockProps {
+export type CodeBlockProps = {
   /** Each entry is one rendered (pre-highlighted) line. */
   lines: ReactNode[]
   filename?: string

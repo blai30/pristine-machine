@@ -12,7 +12,7 @@ export type BadgeVariant =
   | 'info'
   | 'solid'
 
-export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+export type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
   variant?: BadgeVariant
   /** Show a leading status dot in the current text color. */
   dot?: boolean

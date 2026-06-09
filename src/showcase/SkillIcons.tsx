@@ -88,7 +88,7 @@ const art: Record<string, ReactNode> = {
   ),
 }
 
-export interface SkillIconProps {
+export type SkillIconProps = {
   /** Hotbar key (Q/W/E/R) selecting which ability art to render. */
   skillKey: string
   /** Sizes the square tile (e.g. `size-12`). */

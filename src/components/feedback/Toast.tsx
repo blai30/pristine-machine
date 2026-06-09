@@ -68,7 +68,7 @@ function ToastList() {
   })
 }
 
-export interface ToastProviderProps {
+export type ToastProviderProps = {
   children: ReactNode
   /** Default auto-dismiss in ms (0 disables). */
   timeout?: number

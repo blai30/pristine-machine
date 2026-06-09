@@ -2,7 +2,7 @@ import { Separator as BaseSeparator } from '@base-ui/react/separator'
 import { clsx } from 'clsx/lite'
 import type { ComponentProps } from 'react'
 
-export interface SeparatorProps extends Omit<ComponentProps<typeof BaseSeparator>, 'className'> {
+export type SeparatorProps = Omit<ComponentProps<typeof BaseSeparator>, 'className'> & {
   className?: string
 }
 

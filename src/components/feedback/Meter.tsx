@@ -2,7 +2,7 @@ import { Meter as BaseMeter } from '@base-ui/react/meter'
 import { clsx } from 'clsx/lite'
 import type { ReactNode } from 'react'
 
-export interface MeterProps {
+export type MeterProps = {
   /** The measured value within `min`..`max`. */
   value: number
   min?: number

@@ -12,7 +12,7 @@ import {
   Switch,
 } from '@/components'
 
-interface Member {
+type Member = {
   name: string
   email: string
   role: string

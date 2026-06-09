@@ -2,7 +2,7 @@ import { Progress as BaseProgress } from '@base-ui/react/progress'
 import { clsx } from 'clsx/lite'
 import type { ReactNode } from 'react'
 
-export interface ProgressProps {
+export type ProgressProps = {
   /** Current value; pass `null` (or omit) for an indeterminate bar. */
   value?: number | null
   min?: number

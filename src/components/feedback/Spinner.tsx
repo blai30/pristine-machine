@@ -3,7 +3,7 @@ import { clsx } from 'clsx/lite'
 import { BrandMark } from '@/components/brand/BrandMark'
 import type { BrandMarkTheme } from '@/components/brand/BrandMark'
 
-export interface SpinnerProps {
+export type SpinnerProps = {
   /** Pin colors to one theme instead of following `.dark`. */
   theme?: BrandMarkTheme
   /** Accessible status label. */

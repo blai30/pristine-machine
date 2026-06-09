@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'react'
 
 export type CardVariant = 'default' | 'flat' | 'raised'
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+export type CardProps = HTMLAttributes<HTMLDivElement> & {
   variant?: CardVariant
   /** Lift + accent border on hover. */
   interactive?: boolean

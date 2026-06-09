@@ -3,12 +3,12 @@ import type { HTMLAttributes, ReactNode } from 'react'
 
 import { focusRing } from '@/lib/styles'
 
-export interface SideNavItem {
+export type SideNavItem = {
   id: string
   label: ReactNode
 }
 
-export interface SideNavSection {
+export type SideNavSection = {
   id: string
   label: ReactNode
   /** Optional ordinal, rendered before the label in the accent color. */
@@ -16,7 +16,7 @@ export interface SideNavSection {
   items?: SideNavItem[]
 }
 
-export interface SideNavProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
+export type SideNavProps = Omit<HTMLAttributes<HTMLElement>, 'onChange'> & {
   sections: SideNavSection[]
   /** Id of the currently active item (or section) — highlighted in the accent color. */
   activeId?: string

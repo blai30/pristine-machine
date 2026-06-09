@@ -2,7 +2,7 @@ import { Slider as BaseSlider } from '@base-ui/react/slider'
 import { clsx } from 'clsx/lite'
 import type { ReactNode } from 'react'
 
-export interface SliderProps extends Omit<BaseSlider.Root.Props, 'className' | 'render'> {
+export type SliderProps = Omit<BaseSlider.Root.Props, 'className' | 'render'> & {
   label?: ReactNode
   /** Show the formatted value on the right of the label row. */
   showValue?: boolean

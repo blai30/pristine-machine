@@ -2,7 +2,7 @@ import { ScrollArea as BaseScrollArea } from '@base-ui/react/scroll-area'
 import { clsx } from 'clsx/lite'
 import type { ReactNode } from 'react'
 
-export interface ScrollAreaProps {
+export type ScrollAreaProps = {
   children: ReactNode
   /** Size the scroll region here (e.g. `h-48`). */
   className?: string

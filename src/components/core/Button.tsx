@@ -6,7 +6,7 @@ import { focusRing } from '@/lib/styles'
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'accentSoft' | 'danger'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant
   size?: ButtonSize
   block?: boolean

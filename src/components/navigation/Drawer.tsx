@@ -4,7 +4,7 @@ import type { HTMLAttributes, ReactNode } from 'react'
 
 export type DrawerSide = 'left' | 'right'
 
-export interface DrawerProps extends HTMLAttributes<HTMLDivElement> {
+export type DrawerProps = HTMLAttributes<HTMLDivElement> & {
   open: boolean
   onClose: () => void
   /** Edge the panel slides in from (default left). */

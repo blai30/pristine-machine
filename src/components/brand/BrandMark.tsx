@@ -7,7 +7,7 @@ export type BrandMarkTheme = 'auto' | 'light' | 'dark'
 /** `filled` = solid figure with negative-space detailing; `outline` = line-work. */
 export type BrandMarkVariant = 'filled' | 'outline'
 
-export interface BrandMarkProps {
+export type BrandMarkProps = {
   variant?: BrandMarkVariant
   /** Pin the colors to one theme instead of following `.dark`. */
   theme?: BrandMarkTheme

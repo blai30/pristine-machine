@@ -3,7 +3,7 @@ import { clsx } from 'clsx/lite'
 import { Minus, Plus } from 'lucide-react'
 import type { ReactNode } from 'react'
 
-export interface NumberFieldProps extends Omit<BaseNumberField.Root.Props, 'className' | 'render'> {
+export type NumberFieldProps = Omit<BaseNumberField.Root.Props, 'className' | 'render'> & {
   label?: ReactNode
   className?: string
 }

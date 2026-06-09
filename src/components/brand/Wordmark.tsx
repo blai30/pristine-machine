@@ -7,7 +7,7 @@ export type WordmarkSize = 'sm' | 'lg'
 /** Lock the wordmark to a theme, or follow the ambient one (`auto`). */
 export type WordmarkTheme = 'auto' | 'light' | 'dark'
 
-export interface WordmarkProps {
+export type WordmarkProps = {
   size?: WordmarkSize
   /** Pin the colors to one theme instead of following `.dark`. */
   theme?: WordmarkTheme

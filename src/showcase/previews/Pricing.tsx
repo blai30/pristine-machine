@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { Badge, Button, Card, SegmentedControl } from '@/components'
 
-interface Tier {
+type Tier = {
   name: string
   tagline: string
   monthly: number
