@@ -6,7 +6,7 @@ A master design system and live showcase — a plum-blossom (梅花) take on a d
 
 The repository contains two things:
 
-- **The design system** — a catalog of reusable, accessibly-built React components (buttons, forms, navigation, feedback, brand marks) authored entirely with Tailwind utilities and built on top of [Base UI](https://base-ui.com) primitives.
+- **The design system** — a catalog of reusable, accessibly-built React components (buttons, forms, overlays, disclosure, navigation, feedback, brand marks) authored entirely with Tailwind utilities and built on top of [Base UI](https://base-ui.com) primitives.
 - **The showcase** — a single-page live preview site that documents the foundations (color, typography, scale), demonstrates every component, and assembles them into real interfaces (a deploy console, pricing page, data table, and product page).
 
 > **Looking for the deep reference?** [`docs/design-system.md`](docs/design-system.md) is the comprehensive source of truth — design philosophy, full foundations, the complete component catalog, and the rationale behind every decision. This README stays high level.
@@ -66,10 +66,12 @@ import { Button, Card } from '@pristine-machine/ui'
 ```
 src/
   components/   reusable design-system components, grouped by category
-    core/       Button, IconButton, Badge, Card, Kbd, CodeBlock
-    forms/      Input, Select, Switch, Checkbox, Radio
-    feedback/   Callout, Tooltip
-    navigation/ Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer
+    core/       Button, IconButton, Badge, Card, Kbd, CodeBlock, Avatar, Separator, ScrollArea
+    forms/      Input, Select, Switch, Checkbox, Radio, Slider, NumberField, Form, Fieldset
+    feedback/   Callout, Tooltip, Spinner, Toast, Progress, Meter
+    navigation/ Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer, Toolbar
+    overlays/   Dialog, AlertDialog, Popover, Menu, PreviewCard
+    disclosure/ Accordion, Collapsible
     brand/      Wordmark, Blueprint frame primitives
   lib/          shared class fragments (focus rings, eyebrow labels)
   showcase/     the live preview site (not part of the component library)

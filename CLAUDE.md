@@ -17,7 +17,7 @@ These are the project's reason for existing. They override default habits — fo
 1. **Tailwind utility classes only.** Never write custom CSS. Never use the inline `style` attribute.
 2. **No CSS variables/tokens; keep the two CSS files minimal.** The only hand-written CSS is `preset.css` at the repo root (the three font families -- `--font-sans` Geist, `--font-serif` Instrument Serif, `--font-mono` JetBrains Mono -- plus the `dark` variant; this is the file the published package exports) and `src/index.css` (only `@import 'tailwindcss'` then `@import '../preset.css'`). Never add `@theme` color tokens or any other CSS variables to either (the font-family block in `preset.css` is the only sanctioned `@theme` use). Fonts load from Google Fonts in `index.html`.
 3. **No `px` values.** Use Tailwind's predefined scale (`rem`-based).
-4. **Arbitrary values (`[...]`) only when truly unavoidable, and never `px`.** The sanctioned ones already in use: the spring easing `ease-[cubic-bezier(0.34,1.56,0.64,1)]`, em-relative icon sizing (`[&_svg]:size-[1.1em]`, `1.15em`, `1.125rem`), tiny press scales (`scale-[0.99]`/`scale-[0.94]`), and the `has-[:checked]` / `has-[:focus-visible]` variant selectors. Don't add new ones casually.
+4. **Arbitrary values (`[...]`) only when truly unavoidable, and never `px`.** The sanctioned ones already in use: the spring easing `ease-[cubic-bezier(0.34,1.56,0.64,1)]`, em-relative icon sizing (`[&_svg]:size-[1.1em]`, `1.15em`, `1.125rem`), tiny press scales (`scale-[0.99]`/`scale-[0.94]`), the `has-[:checked]` / `has-[:focus-visible]` variant selectors, and (disclosure panels only) `transition-[height]` with the Base UI panel-height var shorthands `h-(--collapsible-panel-height)` / `h-(--accordion-panel-height)` -- the only way to animate panel height without custom CSS. Don't add new ones casually.
 
 Before finishing any change: the only CSS touched should be `preset.css` / `src/index.css` (and only their minimal contents above); grep `src/` for `style=` (none) and for `px]` / `[#` (none).
 
@@ -56,10 +56,12 @@ Tailwind v4.3 ships a native `mauve` ramp — that's the whole reason this works
 ```
 src/
   components/            reusable design-system components, by category (barrel: index.ts)
-    core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock
-    forms/               Input, Select, Switch, Checkbox + Radio
-    feedback/            Callout, Tooltip
-    navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer
+    core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock, Avatar, Separator, ScrollArea
+    forms/               Input, Select, Switch, Checkbox + Radio, Slider, NumberField, Form, Fieldset
+    feedback/            Callout, Tooltip, Spinner, Toast, Progress, Meter
+    navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer, Toolbar
+    overlays/            Dialog, AlertDialog, Popover, Menu, PreviewCard
+    disclosure/          Accordion, Collapsible
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
   lib/
     styles.ts            shared class fragments: focusRing, eyebrow
@@ -84,6 +86,7 @@ Use the **`@/` path alias** for all intra-`src` imports (`@/*` → `src/*`, conf
 - **Type the props.** Variant/size options as `Record<Variant, string>` class maps.
 - **Separate layout from color.** Put structural classes in a `base` string and per-variant colors in the variant map. Never let the _same_ CSS property (e.g. `text-*`, `bg-*`) appear in both base and a variant — Tailwind resolves conflicts by source order, not class order, so duplicates fight.
 - **Controlled + uncontrolled.** Stateful nav/form components accept `value`/`defaultValue`/`onChange`.
+- **Base UI components: hybrid API.** When wrapping a Base UI primitive, pick by shape. Containers whose content varies (Dialog, Popover, Menu, Accordion, Toolbar) export a **namespace object of pre-styled parts** (`export const Dialog = { Root, Trigger, Popup, ... }`); the `Popup` part bundles the Portal/Backdrop/Positioner so consumers never wire plumbing (see `Drawer`), and `Trigger`/`Close` stay raw Base UI parts (consumers pass `render={<Button />}`). Leaf components with fixed anatomy (Progress, Slider, Avatar, Separator) are **single convenience wrappers** with props. Type a part wrapper as `Omit<Base.Part.Props, 'className' | 'render'> & { className?: string }`.
 - **Focus rings:** use the shared `focusRing` fragment.
 - **Icons:** `lucide-react`; size relative to text with `[&_svg]:size-[1.1em]`-style classes.
 - **Peer/`has` pattern (Switch, Checkbox, Radio):** the visual indicator (thumb / checkmark) must be a **sibling** of the `peer` input, not nested inside the track — `peer-checked:` only reaches siblings. Drive the container's checked/focus state with `has-[:checked]` / `has-[:focus-visible]`.

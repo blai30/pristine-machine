@@ -33,7 +33,7 @@ export function SideNav({ sections, activeId, onNavigate, className = '', ...res
             href={`#${section.id}`}
             onClick={() => onNavigate?.(section.id)}
             className={clsx(
-              'font-mono text-xs font-medium tracking-widest uppercase transition-colors duration-150 ease-out',
+              'font-mono text-xs font-medium tracking-widest uppercase transition-colors duration-150 ease-out hover:duration-0',
               activeId === section.id
                 ? 'text-mauve-900 dark:text-mauve-100'
                 : 'text-mauve-500 hover:text-mauve-900 dark:hover:text-mauve-100',
@@ -56,7 +56,7 @@ export function SideNav({ sections, activeId, onNavigate, className = '', ...res
                       aria-current={active ? 'true' : undefined}
                       onClick={() => onNavigate?.(item.id)}
                       className={clsx(
-                        'block border-l py-1.5 pl-3 font-sans text-sm transition-colors duration-150 ease-out',
+                        'block border-l py-1.5 pl-3 font-sans text-sm transition-colors duration-150 ease-out hover:duration-0',
                         active
                           ? 'border-rose-500 text-rose-700 dark:border-rose-400 dark:text-rose-300'
                           : 'border-mauve-200 text-mauve-600 hover:border-mauve-400 hover:text-mauve-900 dark:border-mauve-700 dark:text-mauve-400 dark:hover:text-mauve-100',

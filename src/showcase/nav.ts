@@ -22,6 +22,8 @@ export const NAV_SECTIONS: SideNavSection[] = [
       { id: 'forms', label: 'Forms' },
       { id: 'feedback', label: 'Feedback' },
       { id: 'navigation', label: 'Navigation' },
+      { id: 'overlays', label: 'Overlays' },
+      { id: 'disclosure', label: 'Disclosure' },
     ],
   },
   {

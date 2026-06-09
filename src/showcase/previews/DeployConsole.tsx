@@ -154,11 +154,14 @@ export function DeployConsole() {
               <span className="font-sans text-sm font-medium text-mauve-900 dark:text-mauve-100">
                 Environment
               </span>
-              <Select defaultValue="production">
-                <option value="production">Production</option>
-                <option value="staging">Staging</option>
-                <option value="preview">Preview</option>
-              </Select>
+              <Select
+                defaultValue="production"
+                items={[
+                  { value: 'production', label: 'Production' },
+                  { value: 'staging', label: 'Staging' },
+                  { value: 'preview', label: 'Preview' },
+                ]}
+              />
             </label>
             <div className="flex items-end">
               <Switch label="Auto-promote when checks pass" defaultChecked />

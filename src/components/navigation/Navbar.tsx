@@ -55,7 +55,7 @@ export function Navbar({
                 aria-current={active ? 'true' : undefined}
                 onClick={() => onNavigate?.(item.id)}
                 className={clsx(
-                  'rounded-none py-1 font-mono text-xs font-medium tracking-widest whitespace-nowrap uppercase transition-colors duration-150 ease-out',
+                  'rounded-none py-1 font-mono text-xs font-medium tracking-widest whitespace-nowrap uppercase transition-colors duration-150 ease-out hover:duration-0',
                   active
                     ? 'text-rose-600 dark:text-rose-300'
                     : 'text-mauve-500 hover:text-mauve-900 dark:text-mauve-400 dark:hover:text-mauve-100',

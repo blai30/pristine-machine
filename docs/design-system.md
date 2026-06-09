@@ -223,6 +223,18 @@ Components live under `src/components/<category>/` and are imported from the bar
 - `lines: ReactNode[]` (one pre-highlighted line each), optional `filename` and `lang` (editor header), with a line-number gutter.
 - Highlighting is **hand-tokenized**: wrap tokens in `<span className={syntax[kind]}>`. The exported `syntax` map is the single source of truth for token colors — `plain`, `comment` (italic), `keyword` (rose), `string`, `number`, `func` (blueprint blue), `property`, `punctuation`, each with light/dark variants. No JS highlighter is used (it would inject CSS).
 
+**Avatar** - image with an initials fallback (built on Base UI Avatar).
+
+- `src`, `name` (drives alt text and the derived initials), `size` (`sm`/`md`/`lg`). Squared; falls back to mono initials on a plum fill when the image is absent or fails.
+
+**Separator** - a plain semantic divider (Base UI Separator).
+
+- `orientation` (`horizontal` · `vertical`). Distinct from the decorative `BlueprintDivider`.
+
+**ScrollArea** - a scroll region with plum-tinted overlay scrollbars (Base UI ScrollArea).
+
+- Size the bounding box via `className` (e.g. `h-48 w-full`); the content scrolls within. Scrollbars fade in on hover/scroll.
+
 ### Forms
 
 All form controls signal interactivity via a **hover border-darken** (not `cursor-pointer`), and use the shared focus ring.
@@ -231,7 +243,9 @@ All form controls signal interactivity via a **hover border-darken** (not `curso
 
 - `label`, `hint`, `error` (replaces hint and turns the control red), `required`, `size` (`sm`/`md`/`lg`), `iconLeft` / `iconRight`. Focus is `focus-within` (ring + accent border). `disabled` via `aria-disabled`.
 
-**Select** — native `<select>` with a custom plum chevron (the chevron darkens on `group-hover`).
+**Select** - one data-driven select (Base UI Select) with a custom plum chevron.
+
+- `items: {label,value}[]`, `value`/`defaultValue`/`onValueChange`, `placeholder`, `disabled`, `name`. Renders the Base UI custom listbox by default; pass `native` to render a styled native `<select>` instead. The native path is kept on purpose for when the native picker is preferable for accessibility (e.g. mobile pickers, AT familiarity).
 
 **Switch** — a toggle with a spring-sliding thumb.
 
@@ -242,6 +256,16 @@ All form controls signal interactivity via a **hover border-darken** (not `curso
 
 - `label`, plus input attributes. Same peer/`has` pattern as Switch.
 
+**Slider** - a range input with squared thumb(s) (Base UI Slider).
+
+- `value`/`defaultValue`/`onValueChange`, `min`/`max`/`step`, optional `label` + `showValue`. Pass an array value for a multi-thumb range.
+
+**NumberField** - a steppable numeric field (Base UI NumberField).
+
+- `value`/`defaultValue`/`onValueChange`, `min`/`max`/`step`, optional `label`. Minus/plus steppers flank the centered input. (No scrub-area drag.)
+
+**Form** & **Fieldset** - `Form` is a thin wrapper over Base UI Form that coordinates `Field`-based controls and maps server `errors`; `Fieldset` groups related fields under a `legend`.
+
 ### Feedback
 
 **Callout** — a bordered notice with a thick left accent edge (`border-l-4`).
@@ -251,6 +275,18 @@ All form controls signal interactivity via a **hover border-darken** (not `curso
 **Tooltip** — a CSS-only hover/focus tooltip.
 
 - `label`, `placement` (`top` · `bottom`). An inverse bubble (dark in light mode, light in dark mode) with an arrow, revealed on `group-hover` / `group-focus-within`.
+
+**Toast** - transient notifications (Base UI Toast). The one imperative API in the catalog.
+
+- Mount `ToastProvider` once near the app root (holds the manager + a top-right, full-width-on-mobile stacked viewport). Fire from anywhere with `useToast().add({ title, description, type })`; `type` (`info` · `success` · `warning` · `danger`) tints the left accent bar. Slides in from the right; auto-dismisses (default 5s).
+
+**Progress** - a determinate/indeterminate task bar (Base UI Progress).
+
+- `value` (`null` -> indeterminate shimmer), `min`/`max`, optional `label` + `showValue`.
+
+**Meter** - a measured-value bar, e.g. disk usage (Base UI Meter).
+
+- `value`, `min`/`max`, optional `label` + `showValue`.
 
 ### Navigation
 
@@ -275,6 +311,32 @@ All form controls signal interactivity via a **hover border-darken** (not `curso
 **Drawer** — an off-canvas overlay drawer.
 
 - `open`, `onClose`, `side` (`left` · `right`), and `children`. Slides a panel in over a dimmed scrim; closes on scrim click or **Escape**; is `inert` when closed (removed from tab order). Compose any content inside (e.g. a `SideNav`). Width/layout overridable via `className`.
+
+**Toolbar** - a roving-focus action bar (Base UI Toolbar). Compound parts.
+
+- `Toolbar.Root` with `Button` (also a toggle via `data-pressed`), `Link`, `Group`, and `Separator`. Arrow keys move focus between controls.
+
+### Overlays
+
+Built on Base UI. These are **compound**: each exports a namespace object whose parts apply the design-system styling, and whose `Popup` part bundles the portal / backdrop / positioner so consumers never wire up plumbing (the same approach `Drawer` uses). `Trigger` / `Close` are raw Base UI parts; pass `render={<Button />}` to style them.
+
+**Dialog** - a centered modal. `Root, Trigger, Popup, Title, Description, Close`. `Popup` bundles portal + backdrop + a padded centered viewport; light-dismisses.
+
+**AlertDialog** - a confirmation modal. Same parts as `Dialog`, but it does **not** light-dismiss, so always include an explicit `Close` (cancel) plus a confirm action. For destructive decisions.
+
+**Popover** - an anchored floating panel. `Root, Trigger, Popup, Title, Description, Close`; `Popup` bundles portal + positioner + arrow and takes `side` / `align` / `sideOffset`.
+
+**Menu** - a dropdown menu. `Root, Trigger, Popup, Item, Separator, Group, GroupLabel, CheckboxItem, RadioGroup, RadioItem, SubmenuRoot, SubmenuTrigger`. `CheckboxItem` / `RadioItem` ship their indicators; `SubmenuTrigger` ships its chevron.
+
+**PreviewCard** - a hover-triggered rich preview (link-card style). `Root, Trigger, Popup`; `Popup` bundles portal + positioner + arrow.
+
+### Disclosure
+
+Compound, built on Base UI. Panel height animates via Base UI's exposed CSS variable.
+
+**Accordion** - stacked expandable sections. `Root, Item, Trigger, Panel` (`Trigger` bundles the header + a rotating chevron). Pass `openMultiple` on `Root` for multiple open panels.
+
+**Collapsible** - a single expandable section. `Root, Trigger, Panel`. The primitive Accordion is built on.
 
 ### Brand
 
@@ -325,10 +387,12 @@ The repo root is the publishable library (`@pristine-machine/ui`) and also hosts
 ```
 src/
   components/            reusable components, by category (barrel: index.ts)
-    core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock
-    forms/               Input, Select, Switch, Checkbox + Radio
-    feedback/            Callout, Tooltip
-    navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer
+    core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock, Avatar, Separator, ScrollArea
+    forms/               Input, Select, Switch, Checkbox + Radio, Slider, NumberField, Form, Fieldset
+    feedback/            Callout, Tooltip, Spinner, Toast, Progress, Meter
+    navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer, Toolbar
+    overlays/            Dialog, AlertDialog, Popover, Menu, PreviewCard
+    disclosure/          Accordion, Collapsible
     brand/               Wordmark, Blueprint (BlueprintFrame, BlueprintDivider, PlusTick)
   lib/
     styles.ts            shared class fragments (focusRing, eyebrow); class composition uses clsx/lite directly, no cn helper

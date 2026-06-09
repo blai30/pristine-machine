@@ -21,7 +21,7 @@ const variants: Record<CardVariant, string> = {
 }
 
 const interactiveCls =
-  'cursor-pointer transition duration-200 ease-out hover:border-mauve-300 hover:shadow-md hover:shadow-rose-900/15 hover:-translate-y-0.5 dark:hover:border-mauve-700'
+  'cursor-pointer transition duration-200 ease-out hover:border-mauve-300 hover:shadow-md hover:shadow-rose-900/15 hover:-translate-y-0.5 hover:duration-0 dark:hover:border-mauve-700'
 
 export function Card({
   children,

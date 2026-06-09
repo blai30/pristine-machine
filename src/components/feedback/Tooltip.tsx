@@ -24,7 +24,7 @@ export function Tooltip({ label, placement = 'top', children, className = '' }: 
         <BaseTooltip.Positioner side={placement} sideOffset={8} className="z-50">
           <BaseTooltip.Popup className={popup}>
             {label}
-            <BaseTooltip.Arrow className="size-2 rotate-45 bg-mauve-900 dark:bg-mauve-100" />
+            <BaseTooltip.Arrow className="size-2 rotate-45 bg-mauve-900 data-[side=bottom]:bottom-full data-[side=bottom]:translate-y-1/2 data-[side=top]:top-full data-[side=top]:-translate-y-1/2 dark:bg-mauve-100" />
           </BaseTooltip.Popup>
         </BaseTooltip.Positioner>
       </BaseTooltip.Portal>
