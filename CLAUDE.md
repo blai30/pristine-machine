@@ -57,7 +57,7 @@ Tailwind v4.3 ships a native `mauve` ramp — that's the whole reason this works
 src/
   components/            reusable design-system components, by category (barrel: index.ts)
     core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock, Avatar, Separator, ScrollArea
-    forms/               Input, Select, Switch, Checkbox + Radio, Slider, NumberField, Form, Fieldset
+    forms/               Input, Select, Switch, Checkbox + Radio, Slider, NumberField
     feedback/            Callout, Tooltip, Spinner, Toast, Progress, Meter
     navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer, Toolbar
     overlays/            Dialog, AlertDialog, Popover, Menu, PreviewCard

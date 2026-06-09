@@ -41,3 +41,25 @@ export const NAV_ITEMS: NavbarItem[] = NAV_SECTIONS.map((section) => ({
 
 /** Top-level section ids tracked by the scrollspy. */
 export const SPY_IDS = NAV_ITEMS.map((item) => item.id)
+
+/** Stand-in nav tree for the SideNav / Drawer specimens, kept off the real `-demo`-free ids. */
+export const DEMO_NAV_SECTIONS: SideNavSection[] = [
+  {
+    id: 'foundations-demo',
+    number: 1,
+    label: 'Foundations',
+    items: [
+      { id: 'colors-demo', label: 'Color' },
+      { id: 'type-demo', label: 'Typography' },
+    ],
+  },
+  {
+    id: 'components-demo',
+    number: 2,
+    label: 'Components',
+    items: [
+      { id: 'core-demo', label: 'Core' },
+      { id: 'forms-demo', label: 'Forms' },
+    ],
+  },
+]

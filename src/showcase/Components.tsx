@@ -34,7 +34,6 @@ import {
   Collapsible,
   Dialog,
   Drawer,
-  Fieldset,
   IconButton,
   Input,
   Kbd,
@@ -62,6 +61,7 @@ import {
   Wordmark,
 } from '@/components'
 import { eyebrow } from '@/lib/styles'
+import { DEMO_NAV_SECTIONS } from '@/showcase/nav'
 import { SkillIcon } from '@/showcase/SkillIcons'
 import { Section, Spec } from '@/showcase/ui'
 
@@ -113,26 +113,7 @@ function DrawerDemo() {
         <SideNav
           activeId="forms-demo"
           onNavigate={() => setOpen(false)}
-          sections={[
-            {
-              id: 'foundations-demo',
-              number: 1,
-              label: 'Foundations',
-              items: [
-                { id: 'colors-demo', label: 'Color' },
-                { id: 'type-demo', label: 'Typography' },
-              ],
-            },
-            {
-              id: 'components-demo',
-              number: 2,
-              label: 'Components',
-              items: [
-                { id: 'core-demo', label: 'Core' },
-                { id: 'forms-demo', label: 'Forms' },
-              ],
-            },
-          ]}
+          sections={DEMO_NAV_SECTIONS}
         />
       </Drawer>
     </>
@@ -455,10 +436,13 @@ export function Components() {
             </div>
           </Spec>
           <Spec name="Fieldset" row={false}>
-            <Fieldset legend="Billing contact" className="w-full max-w-md">
+            <fieldset className="flex w-full max-w-md flex-col gap-4">
+              <legend className="font-sans text-base font-semibold text-mauve-900 dark:text-mauve-100">
+                Billing contact
+              </legend>
               <Input label="Full name" placeholder="Ada Lovelace" />
               <Input label="Email" type="email" placeholder="ada@example.com" />
-            </Fieldset>
+            </fieldset>
           </Spec>
         </Group>
 
@@ -577,29 +561,7 @@ export function Components() {
           </Spec>
           <Spec name="SideNav" row={false}>
             <div className="w-full max-w-xs rounded-none border border-mauve-200 p-5 dark:border-mauve-700">
-              <SideNav
-                activeId="forms-demo"
-                sections={[
-                  {
-                    id: 'foundations-demo',
-                    number: 1,
-                    label: 'Foundations',
-                    items: [
-                      { id: 'colors-demo', label: 'Color' },
-                      { id: 'type-demo', label: 'Typography' },
-                    ],
-                  },
-                  {
-                    id: 'components-demo',
-                    number: 2,
-                    label: 'Components',
-                    items: [
-                      { id: 'core-demo', label: 'Core' },
-                      { id: 'forms-demo', label: 'Forms' },
-                    ],
-                  },
-                ]}
-              />
+              <SideNav activeId="forms-demo" sections={DEMO_NAV_SECTIONS} />
             </div>
           </Spec>
         </Group>

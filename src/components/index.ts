@@ -34,10 +34,6 @@ export { Slider } from '@/components/forms/Slider'
 export type { SliderProps } from '@/components/forms/Slider'
 export { NumberField } from '@/components/forms/NumberField'
 export type { NumberFieldProps } from '@/components/forms/NumberField'
-export { Form } from '@/components/forms/Form'
-export type { FormProps } from '@/components/forms/Form'
-export { Fieldset } from '@/components/forms/Fieldset'
-export type { FieldsetProps } from '@/components/forms/Fieldset'
 
 // Feedback
 export { Callout } from '@/components/feedback/Callout'

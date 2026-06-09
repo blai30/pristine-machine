@@ -264,8 +264,6 @@ All form controls signal interactivity via a **hover border-darken** (not `curso
 
 - `value`/`defaultValue`/`onValueChange`, `min`/`max`/`step`, optional `label`. Minus/plus steppers flank the centered input. (No scrub-area drag.)
 
-**Form** & **Fieldset** - `Form` is a thin wrapper over Base UI Form that coordinates `Field`-based controls and maps server `errors`; `Fieldset` groups related fields under a `legend`.
-
 ### Feedback
 
 **Callout** — a bordered notice with a thick left accent edge (`border-l-4`).
@@ -388,7 +386,7 @@ The repo root is the publishable library (`@pristine-machine/ui`) and also hosts
 src/
   components/            reusable components, by category (barrel: index.ts)
     core/                Button, IconButton, Badge, Card(+Header/Footer), Kbd, CodeBlock, Avatar, Separator, ScrollArea
-    forms/               Input, Select, Switch, Checkbox + Radio, Slider, NumberField, Form, Fieldset
+    forms/               Input, Select, Switch, Checkbox + Radio, Slider, NumberField
     feedback/            Callout, Tooltip, Spinner, Toast, Progress, Meter
     navigation/          Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer, Toolbar
     overlays/            Dialog, AlertDialog, Popover, Menu, PreviewCard

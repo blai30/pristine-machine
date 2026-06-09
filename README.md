@@ -67,7 +67,7 @@ import { Button, Card } from '@pristine-machine/ui'
 src/
   components/   reusable design-system components, grouped by category
     core/       Button, IconButton, Badge, Card, Kbd, CodeBlock, Avatar, Separator, ScrollArea
-    forms/      Input, Select, Switch, Checkbox, Radio, Slider, NumberField, Form, Fieldset
+    forms/      Input, Select, Switch, Checkbox, Radio, Slider, NumberField
     feedback/   Callout, Tooltip, Spinner, Toast, Progress, Meter
     navigation/ Tabs, SegmentedControl, SideNav, Sidebar, Navbar, Drawer, Toolbar
     overlays/   Dialog, AlertDialog, Popover, Menu, PreviewCard
