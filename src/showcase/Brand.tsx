@@ -1,4 +1,4 @@
-import { BlueprintDivider, PlusTick, Wordmark } from '@/components'
+import { BrandMark, BlueprintDivider, PlusTick, Wordmark } from '@/components'
 import { eyebrow } from '@/lib/styles'
 import { Section, Spec } from '@/showcase/ui'
 
@@ -28,10 +28,10 @@ export function Brand() {
                 .
               </p>
             </div>
-            <BlueprintDivider ticked />
+            <BlueprintDivider ticked mark />
             <div className="px-8 py-4">
               <span className="font-mono text-xs text-mauve-500">
-                vertical rails · dividers · + ticks
+                vertical rails · dividers · + ticks · blossom
               </span>
             </div>
           </div>
@@ -40,14 +40,20 @@ export function Brand() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <Spec name="On paper (light)" row={false}>
             <div className="flex min-h-full flex-col items-start gap-8 rounded-none border border-mauve-200 bg-white p-8">
-              <Wordmark theme="light" />
-              <Wordmark theme="light" compact />
+              <Wordmark theme="light" withMark />
+              <div className="flex items-end gap-8">
+                <BrandMark theme="light" className="size-20" />
+                <BrandMark theme="light" variant="outline" className="size-20" />
+              </div>
             </div>
           </Spec>
           <Spec name="On aubergine (dark)" row={false}>
             <div className="flex min-h-full flex-col items-start gap-8 rounded-none border border-mauve-700 bg-mauve-900 p-8">
-              <Wordmark theme="dark" />
-              <Wordmark theme="dark" compact />
+              <Wordmark theme="dark" withMark />
+              <div className="flex items-end gap-8">
+                <BrandMark theme="dark" className="size-20" />
+                <BrandMark theme="dark" variant="outline" className="size-20" />
+              </div>
             </div>
           </Spec>
         </div>

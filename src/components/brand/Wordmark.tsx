@@ -1,17 +1,24 @@
 import { clsx } from 'clsx/lite'
 
+import { BrandMark } from '@/components/brand/BrandMark'
+
 export type WordmarkSize = 'sm' | 'lg'
 
 /** Lock the wordmark to a theme, or follow the ambient one (`auto`). */
 export type WordmarkTheme = 'auto' | 'light' | 'dark'
 
 export interface WordmarkProps {
-  /** Drop the mono subtitle line. */
-  compact?: boolean
   size?: WordmarkSize
   /** Pin the colors to one theme instead of following `.dark`. */
   theme?: WordmarkTheme
+  /** Show the brand mark before the wordmark. */
+  withMark?: boolean
   className?: string
+}
+
+const markSize: Record<WordmarkSize, string> = {
+  sm: 'size-8',
+  lg: 'size-14',
 }
 
 const wordSize: Record<WordmarkSize, string> = {
@@ -32,23 +39,27 @@ const accentColor: Record<WordmarkTheme, string> = {
 }
 
 export function Wordmark({
-  compact = false,
   size = 'lg',
   theme = 'auto',
+  withMark = false,
   className = '',
 }: WordmarkProps) {
+  const word = (
+    <span
+      className={clsx('font-serif leading-none tracking-tight', wordColor[theme], wordSize[size])}
+    >
+      Pristine <span className={clsx('italic', accentColor[theme])}>Machine</span>
+    </span>
+  )
+
+  if (!withMark) {
+    return <div className={clsx('inline-flex', className)}>{word}</div>
+  }
+
   return (
-    <div className={clsx('inline-flex flex-col gap-1', className)}>
-      <span
-        className={clsx('font-serif leading-none tracking-tight', wordColor[theme], wordSize[size])}
-      >
-        Pristine <span className={clsx('italic', accentColor[theme])}>Machine</span>
-      </span>
-      {!compact && (
-        <span className="font-mono text-xs tracking-widest text-mauve-500 uppercase">
-          Software · Interfaces · Craft
-        </span>
-      )}
+    <div className={clsx('inline-flex items-center gap-3', className)}>
+      <BrandMark variant="outline" theme={theme} className={clsx('shrink-0', markSize[size])} />
+      {word}
     </div>
   )
 }

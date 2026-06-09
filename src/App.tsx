@@ -51,7 +51,7 @@ export default function App() {
           className="max-lg:hidden"
           items={NAV_ITEMS}
           activeId={activeId}
-          start={<Wordmark compact size="sm" />}
+          start={<Wordmark size="sm" />}
           end={
             <>
               <Badge variant="neutral">v0.1.0</Badge>
@@ -62,7 +62,7 @@ export default function App() {
 
         {/* Mobile: sticky bar + slide-in sidebar drawer */}
         <header className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-mauve-300 bg-mauve-100/90 px-6 py-3 backdrop-blur-xl lg:hidden dark:border-mauve-700 dark:bg-mauve-900/90">
-          <Wordmark compact size="sm" />
+          <Wordmark size="sm" />
           <IconButton label="Open menu" variant="outline" onClick={() => setMenuOpen(true)}>
             <Menu />
           </IconButton>
@@ -70,7 +70,7 @@ export default function App() {
         <div className="lg:hidden">
           <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} aria-label="Sections">
             <div className="flex items-center justify-between gap-4">
-              <Wordmark compact size="sm" />
+              <Wordmark size="sm" />
               <IconButton label="Close menu" variant="ghost" onClick={() => setMenuOpen(false)}>
                 <X />
               </IconButton>

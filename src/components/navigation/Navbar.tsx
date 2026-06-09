@@ -34,8 +34,8 @@ export function Navbar({
   return (
     <header
       className={clsx(
-        'z-20 flex items-center gap-6 border-b border-mauve-300 bg-mauve-100/90 px-6 py-3 backdrop-blur-xl sm:px-10 dark:border-mauve-700 dark:bg-mauve-900/90',
-        sticky ? 'sticky top-0' : 'relative',
+        'flex items-center gap-6 border-b border-mauve-300 bg-mauve-100/90 px-6 py-3 backdrop-blur-xl sm:px-10 dark:border-mauve-700 dark:bg-mauve-900/90',
+        sticky ? 'sticky top-0 z-20' : 'relative',
         className
       )}
       {...rest}

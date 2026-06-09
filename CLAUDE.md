@@ -6,7 +6,7 @@ Stack: **Vite 8 · TypeScript 6 · React 19 (React Compiler) · Tailwind CSS v4.
 
 > **Deep reference:** [`docs/design-system.md`](docs/design-system.md) is the comprehensive source of truth — philosophy, full foundations, the complete component catalog, and rationale. Consult it when you need more than the quick rules below. This file is the operational quick-reference; keep the two in sync.
 
-**Single package, dual purpose:** the repo root is the publishable library (`@pristine-machine/ui`) and also hosts the live showcase that consumes it. The library lives in `src/components` + `src/lib` (public barrel `src/index.ts`); the showcase lives in `src/showcase` + `src/App.tsx` and imports the library straight from source via `@/components`. Two Vite configs: `vite.config.ts` builds the showcase site (to `dist-site`), `vite.lib.config.ts` builds the publishable library (to `dist`). See [`README.md`](README.md#using-the-library) for consumer install and usage and [`docs/superpowers/specs/2026-06-08-pristine-machine-package-design.md`](docs/superpowers/specs/2026-06-08-pristine-machine-package-design.md) for the packaging rationale.
+**Single package, dual purpose:** the repo root is the publishable library (`@pristine-machine/ui`) and also hosts the live showcase that consumes it. The library lives in `src/components` + `src/lib` (public barrel `src/index.ts`); the showcase lives in `src/showcase` + `src/App.tsx` and imports the library straight from source via `@/components`. Two Vite configs: `vite.config.ts` builds the showcase site (to `dist-site`), `vite.lib.config.ts` builds the publishable library (to `dist`). See [`README.md`](README.md#using-the-library) for consumer install.
 
 ---
 

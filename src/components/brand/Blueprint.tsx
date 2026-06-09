@@ -1,6 +1,8 @@
 import { clsx } from 'clsx/lite'
 import type { HTMLAttributes, ReactNode } from 'react'
 
+import { BrandMark } from '@/components/brand/BrandMark'
+
 export type PlusCorner = 'tl' | 'tr' | 'bl' | 'br'
 
 const cornerPos: Record<PlusCorner, string> = {
@@ -48,9 +50,12 @@ export function PlusTick({
 /** Full-bleed horizontal divider; optionally drops "+" ticks where it meets the rails. */
 export function BlueprintDivider({
   ticked = false,
+  mark = false,
   className,
 }: {
   ticked?: boolean
+  /** Seat the brand mark at the center, over a canvas-colored gap in the rule. */
+  mark?: boolean
   className?: string
 }) {
   return (
@@ -60,6 +65,11 @@ export function BlueprintDivider({
           <PlusTick corner="tl" />
           <PlusTick corner="tr" />
         </>
+      )}
+      {mark && (
+        <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-mauve-100 px-3 dark:bg-mauve-900">
+          <BrandMark className="size-6" />
+        </span>
       )}
     </div>
   )

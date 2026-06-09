@@ -32,6 +32,8 @@ export { Callout } from '@/components/feedback/Callout'
 export type { CalloutProps, CalloutVariant } from '@/components/feedback/Callout'
 export { Tooltip } from '@/components/feedback/Tooltip'
 export type { TooltipProps, TooltipPlacement } from '@/components/feedback/Tooltip'
+export { Spinner } from '@/components/feedback/Spinner'
+export type { SpinnerProps } from '@/components/feedback/Spinner'
 
 // Navigation
 export { Tabs } from '@/components/navigation/Tabs'
@@ -48,6 +50,8 @@ export type { DrawerProps, DrawerSide } from '@/components/navigation/Drawer'
 
 // Brand
 export { Wordmark } from '@/components/brand/Wordmark'
-export type { WordmarkProps, WordmarkSize } from '@/components/brand/Wordmark'
+export type { WordmarkProps, WordmarkSize, WordmarkTheme } from '@/components/brand/Wordmark'
+export { BrandMark } from '@/components/brand/BrandMark'
+export type { BrandMarkProps, BrandMarkTheme, BrandMarkVariant } from '@/components/brand/BrandMark'
 export { BlueprintFrame, BlueprintDivider, PlusTick } from '@/components/brand/Blueprint'
 export type { PlusCorner } from '@/components/brand/Blueprint'

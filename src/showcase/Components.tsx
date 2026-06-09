@@ -33,6 +33,7 @@ import {
   SideNav,
   Select,
   SelectMenu,
+  Spinner,
   Switch,
   Tabs,
   Tooltip,
@@ -62,7 +63,7 @@ function DrawerDemo() {
       </Button>
       <Drawer open={open} onClose={() => setOpen(false)} aria-label="Demo sections">
         <div className="flex items-center justify-between gap-4">
-          <Wordmark compact size="sm" />
+          <Wordmark size="sm" />
           <IconButton label="Close drawer" variant="ghost" onClick={() => setOpen(false)}>
             <X />
           </IconButton>
@@ -285,6 +286,11 @@ export function Components() {
               <Button variant="secondary">Hover me (bottom)</Button>
             </Tooltip>
           </Spec>
+          <Spec name="Spinner">
+            <Spinner />
+            <Spinner className="size-6" />
+            <Spinner className="size-16" />
+          </Spec>
         </Group>
 
         {/* NAVIGATION */}
@@ -314,7 +320,7 @@ export function Components() {
               <Navbar
                 sticky={false}
                 activeId="foundations-demo"
-                start={<Wordmark compact size="sm" />}
+                start={<Wordmark size="sm" />}
                 items={[
                   { id: 'foundations-demo', label: 'Foundations' },
                   { id: 'components-demo', label: 'Components' },
