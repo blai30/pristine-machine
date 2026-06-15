@@ -63,7 +63,7 @@ export default function App() {
               </Navbar.List>
             </Navbar.Nav>
             <div className="ml-auto flex shrink-0 items-center gap-3">
-              <Badge variant="neutral">v0.1.0</Badge>
+              <Badge variant="neutral">v{__APP_VERSION__}</Badge>
               <a
                 href="https://github.com/blai30/pristine-machine"
                 target="_blank"
@@ -98,7 +98,7 @@ export default function App() {
                 onNavigate={() => setMenuOpen(false)}
               />
               <div className="mt-auto flex items-center justify-between border-t border-mauve-200 pt-4 dark:border-mauve-700">
-                <Badge variant="neutral">v0.1.0</Badge>
+                <Badge variant="neutral">v{__APP_VERSION__}</Badge>
                 <div className="flex items-center gap-2">
                   <a
                     href="https://github.com/blai30/pristine-machine"
@@ -117,7 +117,7 @@ export default function App() {
 
           <section className="flex flex-col items-start gap-12 px-6 py-20 sm:px-10 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-xl">
-              <span className={eyebrow}>Master Design System · v0.1.0</span>
+              <span className={eyebrow}>Master Design System · v{__APP_VERSION__}</span>
               <h1 className="mt-5 max-w-md font-serif text-7xl leading-18 tracking-tight text-mauve-900 dark:text-mauve-100">
                 A living system for{' '}
                 <span className="text-rose-700 italic dark:text-rose-300">pristine</span> web

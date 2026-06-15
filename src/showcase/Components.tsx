@@ -522,7 +522,7 @@ export function Components() {
                     </Navbar.List>
                   </Navbar.Nav>
                   <div className="ml-auto">
-                    <Badge variant="neutral">v0.1.0</Badge>
+                    <Badge variant="neutral">v{__APP_VERSION__}</Badge>
                   </div>
                 </Navbar.Root>
               </div>
@@ -584,7 +584,8 @@ export function Components() {
               <Dialog.Popup>
                 <Dialog.Title>Publish design system?</Dialog.Title>
                 <Dialog.Description>
-                  This makes v0.1.0 available to every consumer. You can unpublish later.
+                  This makes v{__APP_VERSION__} available to every consumer. You can unpublish
+                  later.
                 </Dialog.Description>
                 <div className="mt-2 flex justify-end gap-2">
                   <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
