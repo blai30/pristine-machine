@@ -1,5 +1,5 @@
 import { Tooltip } from '@base-ui/react/tooltip'
-import { ArrowDown, Menu, Moon, Palette, Sun, X } from 'lucide-react'
+import { ArrowDown, ExternalLink, Menu, Moon, Palette, Sun, X } from 'lucide-react'
 import { useState } from 'react'
 
 import heroImage from '@/assets/hero.png'
@@ -11,7 +11,6 @@ import {
   Drawer,
   IconButton,
   Navbar,
-  SideNav,
   ToastProvider,
   Wordmark,
 } from '@/components'
@@ -22,6 +21,7 @@ import { Components } from '@/showcase/Components'
 import { LivePreview } from '@/showcase/LivePreview'
 import { NAV_ITEMS, NAV_SECTIONS, SPY_IDS } from '@/showcase/nav'
 import { Scales } from '@/showcase/Scales'
+import { SectionNav } from '@/showcase/SectionNav'
 import { Typography } from '@/showcase/Typography'
 import { SectionGroup } from '@/showcase/ui'
 import { useScrollSpy } from '@/showcase/useScrollSpy'
@@ -49,18 +49,33 @@ export default function App() {
       <Tooltip.Provider>
         <BlueprintFrame>
           {/* Desktop: top navbar */}
-          <Navbar
-            className="max-lg:hidden"
-            items={NAV_ITEMS}
-            activeId={activeId}
-            start={<Wordmark size="sm" />}
-            end={
-              <>
-                <Badge variant="neutral">v0.1.0</Badge>
-                <ThemeToggle theme={theme} toggle={toggle} />
-              </>
-            }
-          />
+          <Navbar.Root className="max-lg:hidden">
+            <Wordmark size="sm" />
+            <Navbar.Nav>
+              <Navbar.List>
+                {NAV_ITEMS.map((item) => (
+                  <Navbar.Item key={item.id}>
+                    <Navbar.Link href={item.href} active={activeId === item.id}>
+                      {item.label}
+                    </Navbar.Link>
+                  </Navbar.Item>
+                ))}
+              </Navbar.List>
+            </Navbar.Nav>
+            <div className="ml-auto flex shrink-0 items-center gap-3">
+              <Badge variant="neutral">v0.1.0</Badge>
+              <a
+                href="https://github.com/blai30/pristine-machine"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 py-1 font-mono text-xs font-medium tracking-widest whitespace-nowrap text-mauve-500 uppercase transition-colors duration-150 ease-out hover:text-mauve-900 hover:duration-0 focus-visible:ring-2 focus-visible:ring-rose-500/30 focus-visible:outline-none dark:text-mauve-400 dark:hover:text-mauve-100 dark:focus-visible:ring-rose-400/25 [&_svg]:size-[1em]"
+              >
+                GitHub
+                <ExternalLink />
+              </a>
+              <ThemeToggle theme={theme} toggle={toggle} />
+            </div>
+          </Navbar.Root>
 
           {/* Mobile: sticky bar + slide-in sidebar drawer */}
           <header className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-mauve-300 bg-mauve-100/90 px-6 py-3 backdrop-blur-xl lg:hidden dark:border-mauve-700 dark:bg-mauve-900/90">
@@ -77,14 +92,25 @@ export default function App() {
                   <X />
                 </IconButton>
               </div>
-              <SideNav
+              <SectionNav
                 sections={NAV_SECTIONS}
                 activeId={activeId}
                 onNavigate={() => setMenuOpen(false)}
               />
               <div className="mt-auto flex items-center justify-between border-t border-mauve-200 pt-4 dark:border-mauve-700">
                 <Badge variant="neutral">v0.1.0</Badge>
-                <ThemeToggle theme={theme} toggle={toggle} />
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://github.com/blai30/pristine-machine"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 py-1 font-mono text-xs font-medium tracking-widest whitespace-nowrap text-mauve-500 uppercase transition-colors duration-150 ease-out hover:text-mauve-900 hover:duration-0 focus-visible:ring-2 focus-visible:ring-rose-500/30 focus-visible:outline-none dark:text-mauve-400 dark:hover:text-mauve-100 dark:focus-visible:ring-rose-400/25 [&_svg]:size-[1em]"
+                  >
+                    GitHub
+                    <ExternalLink />
+                  </a>
+                  <ThemeToggle theme={theme} toggle={toggle} />
+                </div>
               </div>
             </Drawer>
           </div>
@@ -152,6 +178,15 @@ export default function App() {
                 className="text-rose-700 hover:underline dark:text-rose-300"
               >
                 blai30
+              </a>
+              {' · '}
+              <a
+                href="https://github.com/blai30/pristine-machine"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-rose-700 hover:underline dark:text-rose-300"
+              >
+                View on GitHub
               </a>
             </p>
           </footer>

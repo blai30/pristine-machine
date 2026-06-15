@@ -1,36 +1,15 @@
+import { NavigationMenu } from '@base-ui/react/navigation-menu'
 import { clsx } from 'clsx/lite'
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes } from 'react'
 
 import { focusRing } from '@/lib/styles'
 
-export type NavbarItem = {
-  id: string
-  label: ReactNode
-}
-
-export type NavbarProps = Omit<HTMLAttributes<HTMLElement>, 'onChange'> & {
-  items?: NavbarItem[]
-  /** Id of the active item — highlighted in the accent color with an underline. */
-  activeId?: string
-  onNavigate?: (id: string) => void
-  /** Leading slot, e.g. a brand mark. */
-  start?: ReactNode
-  /** Trailing slot, e.g. actions. */
-  end?: ReactNode
+type RootProps = HTMLAttributes<HTMLElement> & {
   /** Pin to the top of the scroll container (default true). */
   sticky?: boolean
 }
 
-export function Navbar({
-  items = [],
-  activeId,
-  onNavigate,
-  start,
-  end,
-  sticky = true,
-  className = '',
-  ...rest
-}: NavbarProps) {
+function Root({ sticky = true, className = '', children, ...rest }: RootProps) {
   return (
     <header
       className={clsx(
@@ -40,35 +19,66 @@ export function Navbar({
       )}
       {...rest}
     >
-      {start && <div className="shrink-0">{start}</div>}
-      {items.length > 0 && (
-        <nav
-          aria-label="Sections"
-          className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-x-7 gap-y-1"
-        >
-          {items.map((item) => {
-            const active = activeId === item.id
-            return (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                aria-current={active ? 'true' : undefined}
-                onClick={() => onNavigate?.(item.id)}
-                className={clsx(
-                  'rounded-none py-1 font-mono text-xs font-medium tracking-widest whitespace-nowrap uppercase transition-colors duration-150 ease-out hover:duration-0',
-                  active
-                    ? 'text-rose-600 dark:text-rose-300'
-                    : 'text-mauve-500 hover:text-mauve-900 dark:text-mauve-400 dark:hover:text-mauve-100',
-                  focusRing
-                )}
-              >
-                {item.label}
-              </a>
-            )
-          })}
-        </nav>
-      )}
-      {end && <div className="ml-auto flex shrink-0 items-center gap-3">{end}</div>}
+      {children}
     </header>
   )
 }
+
+type NavProps = Omit<NavigationMenu.Root.Props, 'className' | 'render'> & {
+  className?: string
+}
+
+function Nav({ className = '', ...rest }: NavProps) {
+  return (
+    <NavigationMenu.Root
+      className={clsx('flex min-w-0 flex-1 items-center', className)}
+      {...rest}
+    />
+  )
+}
+
+type ListProps = Omit<NavigationMenu.List.Props, 'className' | 'render'> & {
+  className?: string
+}
+
+function List({ className = '', ...rest }: ListProps) {
+  return (
+    <NavigationMenu.List
+      className={clsx('flex flex-wrap items-center justify-end gap-x-7 gap-y-1', className)}
+      {...rest}
+    />
+  )
+}
+
+type ItemProps = Omit<NavigationMenu.Item.Props, 'className' | 'render'> & {
+  className?: string
+}
+
+function Item({ className, ...rest }: ItemProps) {
+  return <NavigationMenu.Item className={className} {...rest} />
+}
+
+type LinkProps = Omit<NavigationMenu.Link.Props, 'className' | 'render'> & {
+  /** Highlight as the current section — accent color plus aria-current="page". */
+  active?: boolean
+  className?: string
+}
+
+function Link({ active = false, className = '', ...rest }: LinkProps) {
+  return (
+    <NavigationMenu.Link
+      aria-current={active ? 'page' : undefined}
+      className={clsx(
+        'rounded-none py-1 font-mono text-xs font-medium tracking-widest whitespace-nowrap uppercase transition-colors duration-150 ease-out hover:duration-0',
+        active
+          ? 'text-rose-600 dark:text-rose-300'
+          : 'text-mauve-500 hover:text-mauve-900 dark:text-mauve-400 dark:hover:text-mauve-100',
+        focusRing,
+        className
+      )}
+      {...rest}
+    />
+  )
+}
+
+export const Navbar = { Root, Nav, List, Item, Link }

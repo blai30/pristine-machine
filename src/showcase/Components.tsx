@@ -48,7 +48,6 @@ import {
   RadioGroup,
   ScrollArea,
   SegmentedControl,
-  SideNav,
   Select,
   Separator,
   Slider,
@@ -62,6 +61,7 @@ import {
 } from '@/components'
 import { eyebrow } from '@/lib/styles'
 import { DEMO_NAV_SECTIONS } from '@/showcase/nav'
+import { SectionNav } from '@/showcase/SectionNav'
 import { SkillIcon } from '@/showcase/SkillIcons'
 import { Section, Spec } from '@/showcase/ui'
 
@@ -110,7 +110,7 @@ function DrawerDemo() {
             <X />
           </IconButton>
         </div>
-        <SideNav
+        <SectionNav
           activeId="forms-demo"
           onNavigate={() => setOpen(false)}
           sections={DEMO_NAV_SECTIONS}
@@ -504,17 +504,27 @@ export function Components() {
           lead={
             <Spec name="Navbar" row={false}>
               <div className="w-full overflow-hidden rounded-none border border-mauve-200 dark:border-mauve-700">
-                <Navbar
-                  sticky={false}
-                  activeId="foundations-demo"
-                  start={<Wordmark size="sm" />}
-                  items={[
-                    { id: 'foundations-demo', label: 'Foundations' },
-                    { id: 'components-demo', label: 'Components' },
-                    { id: 'live-preview-demo', label: 'Live Preview' },
-                  ]}
-                  end={<Badge variant="neutral">v0.1.0</Badge>}
-                />
+                <Navbar.Root sticky={false}>
+                  <Wordmark size="sm" />
+                  <Navbar.Nav>
+                    <Navbar.List>
+                      <Navbar.Item>
+                        <Navbar.Link href="#foundations-demo" active>
+                          Foundations
+                        </Navbar.Link>
+                      </Navbar.Item>
+                      <Navbar.Item>
+                        <Navbar.Link href="#components-demo">Components</Navbar.Link>
+                      </Navbar.Item>
+                      <Navbar.Item>
+                        <Navbar.Link href="#live-preview-demo">Live Preview</Navbar.Link>
+                      </Navbar.Item>
+                    </Navbar.List>
+                  </Navbar.Nav>
+                  <div className="ml-auto">
+                    <Badge variant="neutral">v0.1.0</Badge>
+                  </div>
+                </Navbar.Root>
               </div>
             </Spec>
           }
@@ -561,7 +571,7 @@ export function Components() {
           </Spec>
           <Spec name="SideNav" row={false}>
             <div className="w-full max-w-xs rounded-none border border-mauve-200 p-5 dark:border-mauve-700">
-              <SideNav activeId="forms-demo" sections={DEMO_NAV_SECTIONS} />
+              <SectionNav activeId="forms-demo" sections={DEMO_NAV_SECTIONS} />
             </div>
           </Spec>
         </Group>

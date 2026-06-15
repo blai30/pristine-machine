@@ -29,9 +29,9 @@ describe('NAV_SECTIONS', () => {
 describe('NAV_ITEMS', () => {
   it('mirrors the top-level sections', () => {
     expect(NAV_ITEMS).toEqual([
-      { id: 'foundations', label: 'Foundations' },
-      { id: 'components', label: 'Components' },
-      { id: 'live-preview', label: 'Live Preview' },
+      { id: 'foundations', label: 'Foundations', href: '#foundations' },
+      { id: 'components', label: 'Components', href: '#components' },
+      { id: 'live-preview', label: 'Live Preview', href: '#live-preview' },
     ])
   })
 })

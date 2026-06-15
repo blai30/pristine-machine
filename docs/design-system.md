@@ -298,15 +298,15 @@ All form controls signal interactivity via a **hover border-darken** (not `curso
 
 - `options: {label,value}[]`, `value`/`defaultValue`/`onChange`. Active segment uses `accent-soft`.
 
-**SideNav** — a vertical section navigation.
+**SideNav** — a vertical section navigation, built on Base UI `NavigationMenu` (vertical orientation). A **namespace of parts**: `Root, Group, GroupLabel, List, Item, Link`.
 
-- `sections: { id, label, number?, items? }[]`, `activeId`, `onNavigate`. Renders numbered top-level groups (ordinal in accent) with nested items; the active item gets accent text and a left accent rail.
+- `Root` is the `<nav>` landmark (`aria-label` defaults to `"Sections"`). `Group` wraps one section. `GroupLabel` is the mono-uppercase section header (`number?` prints the ordinal in the accent; `active?` highlights it) — a plain anchor when given `href`, else a `<span>`. `List`/`Item`/`Link` are the nested item links; `Link` takes `active?` (sets `aria-current="page"`, accent text + left accent rail). Consumers own `href` and click behavior (smooth-scroll, route navigation, closing a drawer) by passing `onClick` per link — the library no longer scrolls or tracks navigation itself. The showcase's `SectionNav` helper (`src/showcase/SectionNav.tsx`) is the reference consumer: it maps a sections array into these parts and wires smooth-scroll + a drawer-close callback.
 
 **Sidebar** — a sticky, full-height sidebar shell (vertical rail) to compose a brand mark + `SideNav` + footer. `className` controls display/width (e.g. `hidden lg:flex`).
 
-**Navbar** — a sticky top bar.
+**Navbar** — a sticky top bar, built on Base UI `NavigationMenu`. A **namespace of parts**: `Root, Nav, List, Item, Link`.
 
-- `items: {id,label}[]`, `activeId`, `onNavigate`, plus `start` / `end` slots and `sticky` (default true). Inline links with an animated active underline; links wrap rather than scroll.
+- `Root` is the `<header>` shell (sticky chrome; `sticky` defaults to true). `Nav` is the `<nav>` landmark (`NavigationMenu.Root`); place the brand mark and trailing actions as siblings of `Nav` inside `Root` so only links live in the landmark. `List`/`Item`/`Link` are the inline links; `Link` takes `active?` (accent color + `aria-current="page"`). Consumers own `href` and click behavior — pass any path (anchor, route) and an optional `onClick`. Base UI provides keyboard navigation (arrow keys, Home/End) for free.
 
 **Drawer** — an off-canvas overlay drawer.
 
@@ -362,7 +362,7 @@ The showcase (`src/App.tsx` + `src/showcase/`) is a single-page live preview of 
 
 - **Structure:** numbered `SectionGroup`s — **01 Foundations**, **02 Components**, **03 Live Preview** — plus a hero and footer, all inside a `BlueprintFrame`, separated by ticked `BlueprintDivider`s.
 - **Sections:** every section uses the `Section` component (mono eyebrow + emphasized serif title + subtitle). The emphasized word is chosen via `Section`'s `emphasis` prop.
-- **Responsive navigation:** a sticky `Navbar` (top-level sections) on `lg+`; below `lg` it swaps to a sticky bar + hamburger that opens a `Drawer` holding the `SideNav`. `useScrollSpy` tracks the active top-level section; `nav.ts` is the shared nav model.
+- **Responsive navigation:** a sticky `Navbar` (top-level sections) on `lg+`; below `lg` it swaps to a sticky bar + hamburger that opens a `Drawer` holding the `SectionNav` helper (which composes `SideNav` parts). `useScrollSpy` tracks the active top-level section; `nav.ts` is the shared nav model (`NAV_SECTIONS`, `NAV_ITEMS`, `NavSection` type).
 - **Hero:** a two-column layout (copy + a theme-adaptive transparent illustration that is `hidden lg:block`) with "Browse components" and "Toggle theme" actions.
 - **Live Preview:** real interfaces assembled **only** from the primitives — a deploy console, pricing, a data table, and a product page. New examples must be built strictly from existing components, proving the parts compose into product surfaces.
 

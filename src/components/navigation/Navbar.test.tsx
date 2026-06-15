@@ -1,44 +1,97 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import { render, setupUser } from '@/test/render'
+import { render } from '@/test/render'
 
 import { Navbar } from './Navbar'
 
-const items = [
-  { id: 'foundations', label: 'Foundations' },
-  { id: 'components', label: 'Components' },
-]
-
-describe('Navbar', () => {
-  it('renders a link per item', () => {
-    const { getByRole } = render(<Navbar items={items} />)
-    expect(getByRole('link', { name: 'Foundations' })).toBeInTheDocument()
-    expect(getByRole('link', { name: 'Components' })).toBeInTheDocument()
+describe('Navbar.Root', () => {
+  it('renders a header element', () => {
+    const { container } = render(<Navbar.Root />)
+    expect(container.querySelector('header')).toBeInTheDocument()
   })
 
-  it('marks the active item with aria-current', () => {
-    const { getByRole } = render(<Navbar items={items} activeId="components" />)
-    expect(getByRole('link', { name: 'Components' })).toHaveAttribute('aria-current', 'true')
+  it('is sticky by default', () => {
+    const { container } = render(<Navbar.Root />)
+    expect(container.firstChild).toHaveClass('sticky')
   })
 
-  it('fires onNavigate on click', async () => {
-    const user = setupUser()
-    const onNavigate = vi.fn()
-    const { getByRole } = render(<Navbar items={items} onNavigate={onNavigate} />)
-    await user.click(getByRole('link', { name: 'Components' }))
-    expect(onNavigate).toHaveBeenCalledWith('components')
+  it('is relative when sticky={false}', () => {
+    const { container } = render(<Navbar.Root sticky={false} />)
+    expect(container.firstChild).toHaveClass('relative')
+    expect(container.firstChild).not.toHaveClass('sticky')
   })
 
-  it('renders the start and end slots', () => {
-    const { getByTestId } = render(
-      <Navbar items={items} start={<span data-testid="brand" />} end={<span data-testid="cta" />} />
+  it('forwards className', () => {
+    const { container } = render(<Navbar.Root className="max-lg:hidden" />)
+    expect(container.firstChild).toHaveClass('max-lg:hidden')
+  })
+})
+
+describe('Navbar.Link', () => {
+  function renderLink(props: React.ComponentPropsWithoutRef<typeof Navbar.Link>) {
+    return render(
+      <Navbar.Nav>
+        <Navbar.List>
+          <Navbar.Item>
+            <Navbar.Link {...props} />
+          </Navbar.Item>
+        </Navbar.List>
+      </Navbar.Nav>
     )
-    expect(getByTestId('brand')).toBeInTheDocument()
-    expect(getByTestId('cta')).toBeInTheDocument()
+  }
+
+  it('renders an anchor with the given href', () => {
+    const { getByRole } = renderLink({ href: '#foundations', children: 'Foundations' })
+    expect(getByRole('link', { name: 'Foundations' })).toHaveAttribute('href', '#foundations')
   })
 
-  it('renders without a nav when no items are given', () => {
-    const { container } = render(<Navbar start={<span>Brand</span>} />)
-    expect(container.querySelector('nav')).toBeNull()
+  it('sets aria-current="page" when active', () => {
+    const { getByRole } = renderLink({
+      href: '#foundations',
+      active: true,
+      children: 'Foundations',
+    })
+    expect(getByRole('link', { name: 'Foundations' })).toHaveAttribute('aria-current', 'page')
+  })
+
+  it('does not set aria-current when not active', () => {
+    const { getByRole } = renderLink({ href: '#foundations', children: 'Foundations' })
+    expect(getByRole('link', { name: 'Foundations' })).not.toHaveAttribute('aria-current')
+  })
+
+  it('applies rose accent class when active', () => {
+    const { getByRole } = renderLink({
+      href: '#foundations',
+      active: true,
+      children: 'Foundations',
+    })
+    expect(getByRole('link', { name: 'Foundations' })).toHaveClass('text-rose-600')
+  })
+
+  it('applies muted class when not active', () => {
+    const { getByRole } = renderLink({ href: '#foundations', children: 'Foundations' })
+    expect(getByRole('link', { name: 'Foundations' })).toHaveClass('text-mauve-500')
+  })
+})
+
+describe('Navbar.Nav', () => {
+  it('renders a nav element', () => {
+    const { container } = render(<Navbar.Nav />)
+    expect(container.querySelector('nav')).toBeInTheDocument()
+  })
+})
+
+describe('Navbar.List', () => {
+  it('renders children', () => {
+    const { getByText } = render(
+      <Navbar.Nav>
+        <Navbar.List>
+          <Navbar.Item>
+            <Navbar.Link href="#">Item</Navbar.Link>
+          </Navbar.Item>
+        </Navbar.List>
+      </Navbar.Nav>
+    )
+    expect(getByText('Item')).toBeInTheDocument()
   })
 })
