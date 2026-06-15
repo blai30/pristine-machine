@@ -1,6 +1,6 @@
 {
   "name": "@pristine-machine/ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Pristine Machine — a plum-blossom and blueprint inspired design system.",
   "packageManager": "pnpm@11.5.2",
   "license": "Apache-2.0",
