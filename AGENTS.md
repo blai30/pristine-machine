@@ -140,6 +140,6 @@ Vitest in jsdom, with React Testing Library + `@testing-library/user-event` + je
 
 ## Maintaining this file
 
-Keep this file current. When you learn something durable that isn't captured here — a new convention, a non-obvious gotcha, a decision, a constraint, a reusable component or pattern — **ask the user whether to add it to CLAUDE.md** (don't add silently, and don't record one-off details). Proactively offer to update it after any substantive change or hard-won lesson.
+Keep this file current. When you learn something durable that isn't captured here — a new convention, a non-obvious gotcha, a decision, a constraint, a reusable component or pattern — **ask the user whether to add it to AGENTS.md** (don't add silently, and don't record one-off details). Proactively offer to update it after any substantive change or hard-won lesson.
 
 Substantive design-system changes also belong in [`docs/design-system.md`](docs/design-system.md) — the in-depth source of truth. Keep the two in sync: this file for day-to-day rules, the doc for full detail and rationale.

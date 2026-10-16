@@ -10,7 +10,7 @@ const trigger =
   'group flex w-full items-center justify-between gap-3 rounded-none bg-transparent px-4 py-3.5 text-left font-sans text-base font-medium text-mauve-900 transition-colors ease-out select-none hover:bg-mauve-100 hover:duration-0 focus-visible:relative focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-rose-500/30 focus-visible:outline-none dark:text-mauve-100 dark:hover:bg-mauve-900 dark:focus-visible:ring-rose-400/25'
 
 // Height animation needs Base UI's exposed panel-height CSS variable; this is the one
-// sanctioned arbitrary value (var shorthand + transition-[height]) - see CLAUDE.md.
+// sanctioned arbitrary value (var shorthand + transition-[height]) - see AGENTS.md.
 const panel =
   'h-(--accordion-panel-height) overflow-hidden transition-[height] duration-200 ease-out data-starting-style:h-0 data-ending-style:h-0'
 
